@@ -14,7 +14,7 @@
       ],
       "short_description": "A simple deployable architecture",
       "long_description": "A simple deployable architecture to use as a starting point and test things around.",
-      "offering_docs_url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/README.md",
+      "offering_docs_url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/README.md",
       "support_details": "This is a demonstration and no official support is given.",
       "flavors": [
         {
@@ -24,7 +24,7 @@
           "licenses": [
             {
               "name": "Apache License 2.0",
-              "url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/LICENSE"
+              "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/LICENSE"
             }
           ],
           "configuration": [
@@ -66,13 +66,13 @@
               ]
             }
           ],
-          "release_notes_url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/CHANGELOG.md",
+          "release_notes_url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/CHANGELOG.md",
           "architecture": {
             "diagrams": [
               {
                 "diagram": {
                   "caption": "Architecture diagram",
-                  "url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/xdocs/architecture.svg",
+                  "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/xdocs/architecture.svg",
                   "metadata": []
                 },
                 "description": "A simple deployable architecture."
@@ -80,7 +80,7 @@
               {
                 "diagram": {
                   "caption": "Terraform resources",
-                  "url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/xdocs/graph.svg",
+                  "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/xdocs/graph.svg",
                   "metadata": []
                 },
                 "description": "A view of the Terraform constructs used within the deployable architecture."
