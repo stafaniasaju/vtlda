@@ -1,0 +1,94 @@
+{
+  "products": [
+    {
+      "name": "simple-da",
+      "label": "Simple deployable architecture",
+      "product_kind": "solution",
+      "version": "1.0.27",
+      "tags": [
+        "network_vpc",
+        "Technology"
+      ],
+      "keywords": [
+        "vpc"
+      ],
+      "short_description": "A simple deployable architecture",
+      "long_description": "A simple deployable architecture to use as a starting point and test things around.",
+      "offering_docs_url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/README.md",
+      "support_details": "This is a demonstration and no official support is given.",
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "simple-da",
+          "install_type": "fullstack",
+          "licenses": [
+            {
+              "name": "Apache License 2.0",
+              "url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/LICENSE"
+            }
+          ],
+          "configuration": [
+            {
+              "key": "prefix",
+              "required": false
+            }
+          ],
+          "outputs": [
+            {
+              "key": "vpc_id"
+            }
+          ],
+          "compliance": {
+            "authority": "scc-v3",
+            "controls": [
+              {
+                "profile": {
+                  "name": "IBM Cloud for Financial Services",
+                  "version": "1.4.0"
+                },
+                "names": [
+                  "SA-4(b)"
+                ]
+              }
+            ]
+          },
+          "iam_permissions": [
+            {
+              "service_name": "iam-groups",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "is.vpc",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            }
+          ],
+          "release_notes_url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/CHANGELOG.md",
+          "architecture": {
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Architecture diagram",
+                  "url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/xdocs/architecture.svg",
+                  "metadata": []
+                },
+                "description": "A simple deployable architecture."
+              },
+              {
+                "diagram": {
+                  "caption": "Terraform resources",
+                  "url": "https://raw.githubusercontent.com/l2fprod/simple-da/main/xdocs/graph.svg",
+                  "metadata": []
+                },
+                "description": "A view of the Terraform constructs used within the deployable architecture."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

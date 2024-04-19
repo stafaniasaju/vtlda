@@ -1,0 +1,68 @@
+<mxfile host="Electron" modified="2023-04-30T21:17:35.067Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="rOm8TvRxugmbnE3QIjka" version="21.2.1" type="device" pages="2">
+  <diagram name="architecture" id="yWxPc5BeWQveIWe7niRe">
+    <mxGraphModel dx="1967" dy="1079" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="MUK-4gSHARojeF0EIeYR-8" value="IBM Cloud" style="shape=mxgraph.ibm.box;prType=cloud;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#4376BB;strokeWidth=3;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="1" vertex="1">
+          <mxGeometry x="-120" y="400" width="680" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-5" value="Region" style="shape=mxgraph.ibm.box;prType=region;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#919191;strokeWidth=2;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="MUK-4gSHARojeF0EIeYR-8" vertex="1">
+          <mxGeometry x="20" y="40" width="390" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-4" value="Resource Group" style="fontStyle=0;verticalAlign=top;align=center;spacingTop=-2;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#919191;strokeWidth=2;dashed=1;container=1;collapsible=0;expand=0;recursiveResize=0;" parent="MUK-4gSHARojeF0EIeYR-5" vertex="1">
+          <mxGeometry x="20" y="40" width="353" height="251" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-1" value="VPC" style="shape=mxgraph.ibm.box;prType=vpc;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#4376BB;strokeWidth=2;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="MUK-4gSHARojeF0EIeYR-4" vertex="1">
+          <mxGeometry x="22" y="31" width="308" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="MUK-4gSHARojeF0EIeYR-8" source="MUK-4gSHARojeF0EIeYR-2" target="MUK-4gSHARojeF0EIeYR-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="MUK-4gSHARojeF0EIeYR-8" source="MUK-4gSHARojeF0EIeYR-2" target="MUK-4gSHARojeF0EIeYR-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="MUK-4gSHARojeF0EIeYR-8" source="MUK-4gSHARojeF0EIeYR-2" target="MUK-4gSHARojeF0EIeYR-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-2" value="IAM" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;fontColor=#4277BB;labelBackgroundColor=default;fontSize=12;spacingTop=3;image=img/lib/ibm/security/identity_access_management.svg;" parent="MUK-4gSHARojeF0EIeYR-8" vertex="1">
+          <mxGeometry x="600" y="55" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-3" value="Administrators" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;fontColor=#4277BB;labelBackgroundColor=default;fontSize=12;spacingTop=3;image=img/lib/ibm/users/user.svg;" parent="MUK-4gSHARojeF0EIeYR-8" vertex="1">
+          <mxGeometry x="460" y="55" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-6" value="Operators" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;fontColor=#4277BB;labelBackgroundColor=default;fontSize=12;spacingTop=3;image=img/lib/ibm/users/user.svg;" parent="MUK-4gSHARojeF0EIeYR-8" vertex="1">
+          <mxGeometry x="460" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MUK-4gSHARojeF0EIeYR-7" value="Developers" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;fontColor=#4277BB;labelBackgroundColor=default;fontSize=12;spacingTop=3;image=img/lib/ibm/users/user.svg;" parent="MUK-4gSHARojeF0EIeYR-8" vertex="1">
+          <mxGeometry x="460" y="255" width="60" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="94vIDjJVvSi0Mu5e5DuN" name="catalog">
+    <mxGraphModel dx="2141" dy="799" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ShqM31INUMBLewAZt32Z-4" value="&amp;nbsp;has many&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="ShqM31INUMBLewAZt32Z-1" target="ShqM31INUMBLewAZt32Z-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ShqM31INUMBLewAZt32Z-1" value="CATALOG" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontFamily=IBM Plex Sans;strokeColor=#b0b4ba;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ShqM31INUMBLewAZt32Z-5" value="&amp;nbsp;has many&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="ShqM31INUMBLewAZt32Z-2" target="ShqM31INUMBLewAZt32Z-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ShqM31INUMBLewAZt32Z-2" value="PRODUCT" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontFamily=IBM Plex Sans;strokeColor=#7bbef2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="240" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ShqM31INUMBLewAZt32Z-3" value="VERSION" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontFamily=IBM Plex Sans;strokeColor=#c29dff;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="480" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

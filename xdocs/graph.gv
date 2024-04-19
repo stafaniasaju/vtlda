@@ -1,0 +1,122 @@
+digraph G {
+  graph [
+    bgcolor="#FFFFFF",
+    compound=true,
+    fontname=helvetica,
+    labeljust=l,
+    pad=0.3,
+    rankdir=BT,
+    ranksep=0.8,
+    ratio=0.75
+  ];
+
+  node [
+    fontcolor="#646365",
+    fontname=helvetica,
+    fontsize=12,
+    shape=box,
+    width=1.1
+    penwidth = 2
+  ];
+
+  edge [
+    arrowhead=vee,
+    color="#000000",
+    fontcolor="#646365",
+    fontname=helvetica,
+    fontsize=8,
+    style=dotted
+  ];
+
+  subgraph cluster_variables {
+    label = "Variables"
+    style = dotted
+
+    "[root] var.prefix" [label = "var.prefix", shape = "note"]
+    "[root] var.region" [label = "var.region", shape = "note"]
+    "[root] var.tags" [label = "var.tags", shape = "note"]
+  }
+
+  subgraph cluster_locals {
+    label = "Locals"
+    style = dotted
+
+    "[root] random_string.random (expand)" [label = "random_string.random", shape = "box"]
+    "[root] local.basename (expand)" [ label = "local.basename" ]
+  }
+
+  subgraph cluster_vpc {
+    label = "Resources"
+    style = dotted
+
+    "[root] ibm_is_vpc.vpc (expand)" [ label = "ibm_is_vpc.vpc" ]
+    "[root] ibm_resource_group.group (expand)" [label = "ibm_resource_group.group", shape = "box"]
+
+    "[root] ibm_is_vpc.vpc (expand)" ->
+    "[root] ibm_resource_group.group (expand)" [ style = "invis" ]
+  }
+
+  subgraph cluster_iam {
+    label = "IAM"
+    style = dotted
+
+    "[root] ibm_iam_access_group.administrators (expand)" [label = "ibm_iam_access_group.administrators", shape = "box"]
+    "[root] ibm_iam_access_group.developers (expand)" [label = "ibm_iam_access_group.developers", shape = "box"]
+    "[root] ibm_iam_access_group.operators (expand)" [label = "ibm_iam_access_group.operators", shape = "box"]
+
+    "[root] ibm_iam_access_group.administrators (expand)" ->
+    "[root] ibm_iam_access_group.developers (expand)" ->
+    "[root] ibm_iam_access_group.operators (expand)" [ style = "invis" ]
+  }
+
+  subgraph cluster_outputs {
+    label = "Outputs"
+    style = dotted
+
+    "[root] output.vpc_id (expand)" [ label = "output.vpc_id" ]
+  }
+
+  "[root] ibm_iam_access_group.administrators (expand)" -> "[root] local.basename (expand)"
+  "[root] ibm_iam_access_group.developers (expand)" -> "[root] local.basename (expand)"
+  "[root] ibm_iam_access_group.operators (expand)" -> "[root] local.basename (expand)"
+  "[root] ibm_is_vpc.vpc (expand)" -> "[root] ibm_resource_group.group (expand)"
+  "[root] ibm_is_vpc.vpc (expand)" -> "[root] local.basename (expand)"
+  "[root] ibm_resource_group.group (expand)" -> "[root] local.basename (expand)"
+  "[root] local.basename (expand)" -> "[root] random_string.random (expand)"
+  "[root] random_string.random (expand)" -> "[root] var.prefix"
+  "[root] output.vpc_id (expand)" -> "[root] ibm_is_vpc.vpc (expand)"
+
+  "[root] var.prefix",
+  "[root] var.region",
+  "[root] var.tags"
+  [
+    fillcolor = "#8ed2d0"
+    color = "#009d9a"
+    style = "filled"
+    fontcolor = "#ffffff"
+  ]
+
+  "[root] ibm_is_vpc.vpc (expand)"
+  [
+    shape = "box",
+    style = "filled",
+    fillcolor = "#ecf5ff"
+    color = "#2973fe"
+  ]
+
+  "[root] ibm_iam_access_group.administrators (expand)",
+  "[root] ibm_iam_access_group.developers (expand)",
+  "[root] ibm_iam_access_group.operators (expand)"
+  [
+    style = "filled"
+    fillcolor = "#f6f2ff"
+    color = "#a56eff"
+  ]
+
+  "[root] output.vpc_id (expand)"
+  [
+    style = "filled"
+    fillcolor = "#e2fcea"
+    color = "#2aaa54"
+  ]
+}
