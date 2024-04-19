@@ -4,7 +4,7 @@
       "name": "vtlda",
       "label": "FalconStor VTL deployable architecture",
       "product_kind": "solution",
-      "version": "0.0.3",
+      "version": "0.0.5",
       "tags": [
         "network_vpc",
         "Technology"
@@ -19,7 +19,7 @@
       "flavors": [
         {
           "label": "Standard",
-          "name": "simple-da",
+          "name": "vtlda",
           "install_type": "fullstack",
           "licenses": [
             {
