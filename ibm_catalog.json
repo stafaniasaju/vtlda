@@ -1,8 +1,8 @@
 {
   "products": [
     {
-      "name": "simple-da",
-      "label": "Simple deployable architecture",
+      "name": "vtlda",
+      "label": "FalconStor VTL deployable architecture",
       "product_kind": "solution",
       "version": "0.0.3",
       "tags": [
