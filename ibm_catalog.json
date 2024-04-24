@@ -39,18 +39,6 @@
             }
           ],
           "compliance": {
-            "authority": "scc-v3",
-            "controls": [
-              {
-                "profile": {
-                  "name": "IBM Cloud for Financial Services",
-                  "version": "1.4.0"
-                },
-                "names": [
-                  "SA-4(b)"
-                ]
-              }
-            ]
           },
           "iam_permissions": [
             {
