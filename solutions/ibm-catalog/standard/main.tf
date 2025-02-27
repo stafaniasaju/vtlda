@@ -1,3 +1,30 @@
+locals {
+  location = regex("^[a-z/-]+", var.prerequisite_workspace_id)
+}
+
+data "ibm_schematics_workspace" "schematics_workspace" {
+  provider     = ibm.ibm_sch
+  workspace_id = var.prerequisite_workspace_id
+  location     = local.location
+}
+
+data "ibm_schematics_output" "schematics_output" {
+  provider     = ibm.ibm_sch
+  workspace_id = var.prerequisite_workspace_id
+  location     = local.location
+  template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
+}
+
+locals {
+  powervs_infrastructure  = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
+  powervs_workspace_guid  = local.powervs_infrastructure[0].powervs_workspace_guid.value
+  powervs_workspace_crn   = local.powervs_infrastructure[0].powervs_workspace_id.value
+  powervs_sshkey_name     = local.powervs_infrastructure[0].powervs_ssh_public_key.value.name
+  powervs_images          = local.powervs_infrastructure[0].powervs_images.value
+  powervs_mgmt_net        = local.powervs_infrastructure[0].powervs_management_subnet.value.name
+  powervs_bkp_net         = local.powervs_infrastructure[0].powervs_backup_subnet.value.name
+}
+
 data "ibm_pi_catalog_images" "catalog_images" {
   sap                  = true
   vtl                  = true
@@ -11,16 +38,16 @@ data "ibm_pi_placement_groups" "cloud_instance_groups" {
 }
 data "ibm_pi_key" "key" {
   pi_cloud_instance_id = local.pid
-  pi_key_name          = var.ssh_key_name
+  pi_key_name          = local.powervs_sshkey_name
 }
 data "ibm_pi_network" "network_1" {
   pi_cloud_instance_id = local.pid
-  pi_network_name      = var.network_1
+  pi_network_name      = local.powervs_mgmt_net
 }
 data "ibm_pi_network" "network_2" {
-  count = length(var.network_2) > 0 ? 1 : 0
+  count = length(local.powervs_bkp_net) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
-  pi_network_name      = var.network_2
+  pi_network_name      = local.powervs_bkp_net
 }
 data "ibm_pi_network" "network_3" {
   count = length(var.network_3) > 0 ? 1 : 0
@@ -52,7 +79,7 @@ resource "ibm_pi_instance" "instance" {
   pi_image_id          = length(local.private_image_id) == 0 ? ibm_pi_image.stock_image_copy[0].image_id : local.private_image_id
   pi_sys_type          = var.system_type
   pi_storage_type      = var.storage_type
-  pi_key_pair_name     = length(var.ssh_key_name) > 0 ? data.ibm_pi_key.key.id : null
+  pi_key_pair_name     = length(local.powervs_sshkey_name) > 0 ? data.ibm_pi_key.key.id : null
   pi_affinity_policy   = length(var.pvm_instances) > 0 ? var.policy_affinity : null
   pi_anti_affinity_instances = length(var.pvm_instances) > 0 ? split(",", var.pvm_instances) : null
   pi_placement_group_id = local.placement_group_id
@@ -62,7 +89,7 @@ resource "ibm_pi_instance" "instance" {
     ip_address = length(var.network_1_ip) > 0 ? var.network_1_ip : ""
   }
   dynamic "pi_network" {
-    for_each = var.network_2 == "" ? [] : [1]
+    for_each = local.powervs_bkp_net == "" ? [] : [1]
     content {
       network_id = data.ibm_pi_network.network_2[0].id
       ip_address = length(var.network_2_ip) > 0 ? var.network_2_ip : ""

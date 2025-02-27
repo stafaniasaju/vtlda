@@ -1,12 +1,21 @@
 ########################################################################################################################
 # Input Variables
 ########################################################################################################################
-
-variable "crn" {
+variable "ibmcloud_api_key" {
+  description = "IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
-  default     = ""
-  description = "Power Systems Virtual Server CRN"
+  sensitive   = true
 }
+variable "prerequisite_workspace_id" {
+  description = "IBM Cloud Schematics workspace ID of an existing 'Power Virtual Server with VPC landing zone' catalog solution. If you do not yet have an existing deployment, click [here](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global?) to create one."
+  type        = string
+}
+
+# variable "crn" {
+#   type        = string
+#   default     = ""
+#   description = "Power Systems Virtual Server CRN"
+# }
 variable "repository_capacity" {
   type        = number
   default     = 1
@@ -42,26 +51,26 @@ variable "storage_type" {
   default     = "tier1"
   description = "The type of storage tier for all volumes to attach to the StorSafe VTL instance: 'tier1' (high performance) or 'tier3'"
 }
-variable "ssh_key_name" {
-  type        = string
-  default     = ""
-  description = "The name of the public SSH RSA key to access the StorSafe VTL instance, as defined for the selected Power Systems Virtual Server CRN"
-}
-variable "network_1" {
-  type        = string
-  default     = ""
-  description = "The first network ID or name to assign to the StorSafe VTL instance, as defined for the selected Power Systems Virtual Server CRN"
-}
+# variable "ssh_key_name" {
+#   type        = string
+#   default     = ""
+#   description = "The name of the public SSH RSA key to access the StorSafe VTL instance, as defined for the selected Power Systems Virtual Server CRN"
+# }
+# variable "network_1" {
+#   type        = string
+#   default     = ""
+#   description = "The first network ID or name to assign to the StorSafe VTL instance, as defined for the selected Power Systems Virtual Server CRN"
+# }
 variable "network_1_ip" {
   type        = string
   default     = ""
   description = "Specific IP address to assign to the first network rather than automatic assignment within the IP range"
 }
-variable "network_2" {
-  type        = string
-  default     = ""
-  description = "The second network ID or name to assign to the StorSafe VTL instance, as defined for the selected Power Systems Virtual Server CRN"
-}
+# variable "network_2" {
+#   type        = string
+#   default     = ""
+#   description = "The second network ID or name to assign to the StorSafe VTL instance, as defined for the selected Power Systems Virtual Server CRN"
+# }
 variable "network_2_ip" {
   type        = string
   default     = ""

@@ -6,3 +6,7 @@
 #  description = "Description of my output"
 #  value       = "value"
 #}
+
+output "crn" {
+  value = local.powervs_mgmt_net
+}
