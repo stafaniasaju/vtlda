@@ -1,13 +1,3 @@
-# terraform {
-#   required_providers {
-#     ibm = {
-#       source  = "IBM-Cloud/ibm"
-#       version = "= 1.70.1"
-#       configuration_aliases = [ibm.ibm-pi]
-#     }
-#   }
-# }
-
 locals {
   ibm_powervs_zone_region_map = {
     "syd04"    = "syd"
@@ -33,20 +23,19 @@ locals {
     "wdc07"    = "us-east"
   }
 
-  pvs_info = split(":", local.powervs_workspace_crn)
-  pi_location = local.pvs_info[5]
-  pid      = local.pvs_info[7]
-}
-
-provider "ibm" { 
-  ibmcloud_api_key = var.ibmcloud_api_key
-  region = lookup(local.ibm_powervs_zone_region_map, local.pi_location, null)
-  zone   = local.pi_location
+  powervs_workspace_info = split(":", local.powervs_workspace_crn)
+  powervs_zone           = local.powervs_workspace_info[5]
 }
 
 provider "ibm" {
-  alias = "ibm_sch"
   ibmcloud_api_key = var.ibmcloud_api_key
-  region = lookup(local.ibm_powervs_zone_region_map, local.location, null)
-  zone   = local.location
+  region           = lookup(local.ibm_powervs_zone_region_map, local.powervs_zone, null)
+  zone             = local.powervs_zone
+}
+
+provider "ibm" {
+  alias            = "ibm_sch"
+  ibmcloud_api_key = var.ibmcloud_api_key
+  region           = lookup(local.ibm_powervs_zone_region_map, local.schematics_ws_location, null)
+  zone             = local.schematics_ws_location
 }

@@ -58,11 +58,97 @@
                 "original_grouping": "deployment",
                 "type": "multiline_secure_value"
               }
+            },
+            {
+              "key": "repository_capacity",
+              "required": true
+            },
+            {
+              "key": "memory",
+              "required": true
+            },
+            {
+              "key": "vcpus",
+              "required": true
+            },
+            {
+              "key": "instance_name",
+              "required": true
+            },
+            {
+              "key": "processor_mode",
+              "required": true
+            },
+            {
+              "key": "system_type",
+              "required": true
+            },
+            {
+              "key": "storage_type",
+              "required": true
+            },
+            {
+              "key": "management_net_ip",
+              "required": true
+            },
+            {
+              "key": "backup_net_ip",
+              "required": true
+            },
+            {
+              "key": "network_3",
+              "required": true
+            },
+            {
+              "key": "network_3_ip",
+              "required": true
+            },
+            {
+              "key": "placement_group",
+              "required": true
+            },
+            {
+              "key": "policy_affinity",
+              "required": true
+            },
+            {
+              "key": "pvm_instances",
+              "required": true
+            },
+            {
+              "key": "volume_configuration_size",
+              "required": true
+            },
+            {
+              "key": "volume_index_size",
+              "required": true
+            },
+            {
+              "key": "volume_tape_size",
+              "required": true
             }
           ],
           "outputs": [
             {
-              "key": "vpc_id"
+              "key": "powervs_workspace_name"
+            },
+            {
+              "key": "powervs_workspace_guid"
+            },
+            {
+              "key": "powervs_zone"
+            },
+            {
+              "key": "powervs_falcon_stor_instance"
+            },
+            {
+              "key": "powervs_falcon_stor_volume_list"
+            },
+            {
+              "key": "powervs_management_subnet"
+            },
+            {
+              "key": "powervs_backup_subnet"
             }
           ],
           "compliance": {},
