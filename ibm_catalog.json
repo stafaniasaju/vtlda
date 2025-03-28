@@ -2,13 +2,13 @@
   "products": [
     {
       "name": "vtlda",
-      "label": "FalconStor VTL deployable architecture",
+      "label": "FalconStor StorSafe PowerVS Deployable Architecture",
       "product_kind": "solution",
       "version": "0.0.5",
       "tags": ["network_vpc", "Technology"],
-      "keywords": ["power", "powervs", "automation", "workspace", "vpc"],
-      "short_description": "A simple deployable architecture",
-      "long_description": "A simple deployable architecture to use as a starting point and test things around.",
+      "keywords": ["Power", "IBM i", "Disaster Recovery", "Backup", "NAS", "VTL", "Deduplication", "Migration", "Veeam"],
+      "short_description": "Reduce your monthly PowerVS backup storage cost by up to 90%, while improving your existing backup solution performance.",
+      "long_description": "FalconStor StorSafe is a software solution that optimizes backup and restore, to improve performance and significantly reduce backup storage costs, all without requiring changes to the existing requirement. With its integrated deduplication, the solution removes redundant copies of data, thereby reducing capacity requirements, decreasing storage costs, and minimizing replication and restore times. StorSafe VTL can be used with all leading backup solutions, and enables both hybrid and native-cloud backup, as well as both workload and tape migration to the cloud. StorSafe VTL also supports NFS and SMB interfaces in a NAS environment. AIX and Linux systems can use StorSafe as an NFS server for applications such as Oracle RMAN or SAP Hana Studio. You can also store backup files created with the Veeam Agent for IBM AIX on backup repositories managed by Veeam Backup & Replication (VBR).",
       "offering_docs_url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/README.md",
       "support_details": "This is a demonstration and no official support is given.",
       "flavors": [
