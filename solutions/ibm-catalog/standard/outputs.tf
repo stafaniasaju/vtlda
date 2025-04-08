@@ -1,6 +1,11 @@
 ###############################################################
 # Outputs
 ###############################################################
+output "storsight_vsi" {
+  description = "A list of VSI with name, id, zone, and primary ipv4 address"
+  value       = module.create_storsight_instance.list[0]
+}
+
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
   value       = local.powervs_workspace_name
@@ -17,7 +22,7 @@ output "powervs_zone" {
 }
 
 output "powervs_stor_safe_vtl_instance" {
-  description = "All private IPS of HANA instance."
+  description = "All private IPS of FalconStor instance."
   value = {
     crn         = resource.ibm_pi_instance.instance.crn
     instance_id = resource.ibm_pi_instance.instance.instance_id
@@ -28,7 +33,7 @@ output "powervs_stor_safe_vtl_instance" {
 }
 
 output "powervs_stor_safe_vtl_volume_list" {
-  description = "All private IPS of HANA instance."
+  description = "All private IPS of FalconStor instance."
   value       = local.powervs_stor_safe_vtl_volume_list
 }
 
