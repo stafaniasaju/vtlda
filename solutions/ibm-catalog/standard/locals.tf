@@ -1,24 +1,67 @@
 # Extract schematics workspace location
 locals {
   schematics_ws_location = regex("^[a-z/-]+", var.prerequisite_workspace_id)
+  powervs_infrastructure = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
+}
+
+# Extract Edge VPC data
+locals {
+  vsi_list = local.powervs_infrastructure[0].vsi_list.value
+  network_services_instance = try(
+    [for vsi in local.vsi_list : vsi if can(regex("network-services", vsi.name))][0],
+    null
+  )
+  vpc_name = local.network_services_instance.vpc_name
+  vpc_id   = local.network_services_instance.vpc_id
+
+  resource_group_id = data.ibm_is_instance.network_services_instance[0].resource_group
+  security_group = try(
+    [for sg in data.ibm_is_vpc.edge_vpc_data.security_group : sg if can(regex("network-services-sg", sg.group_name))][0],
+    null
+  )
+  security_group_ids = [local.security_group.group_id]
+  ssh_key_ids        = [data.ibm_is_instance.network_services_instance[0].keys[0].id]
+  subnets = [{
+    name = data.ibm_is_subnet.network_services_subnet[0].name,
+    id   = data.ibm_is_subnet.network_services_subnet[0].id,
+    zone = data.ibm_is_subnet.network_services_subnet[0].zone,
+    cidr = data.ibm_is_subnet.network_services_subnet[0].ipv4_cidr_block
+  }]
 }
 
 # Extract power virtual server workspace data
 locals {
-  powervs_infrastructure = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
+  prefix                 = local.powervs_infrastructure[0].prefix.value
   powervs_workspace_guid = local.powervs_infrastructure[0].powervs_workspace_guid.value
   powervs_workspace_crn  = local.powervs_infrastructure[0].powervs_workspace_id.value
   powervs_workspace_name = local.powervs_infrastructure[0].powervs_workspace_name.value
   powervs_sshkey_name    = local.powervs_infrastructure[0].powervs_ssh_public_key.value.name
-  powervs_images         = local.powervs_infrastructure[0].powervs_images.value
   powervs_mgmt_net       = local.powervs_infrastructure[0].powervs_management_subnet.value.name
   powervs_bkp_net        = local.powervs_infrastructure[0].powervs_backup_subnet.value.name
-  pi_image_id            = lookup(local.powervs_images, "VTL-FalconStor-11_13_001", null)
 }
 
+# Extract the image id of the pi_instance_boot_image
+locals {
+  catalog_images = {
+    for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images :
+    stock_image.name => stock_image.image_id
+  }
+  pi_image_id = lookup(local.catalog_images, var.pi_instance_boot_image, null)
+}
+
+# Extract the placement_group_id
 locals {
   placement_group    = [for x in data.ibm_pi_placement_groups.cloud_instance_groups.placement_groups : x if x.name == var.placement_group]
   placement_group_id = length(local.placement_group) > 0 ? local.placement_group[0].id : ""
+}
+
+# Consolidate subnet list
+locals {
+  pi_subnet_list = flatten([
+    [{ id = data.ibm_pi_network.powervs_backup_subnet.id, ip = length(var.backup_net_ip) > 0 ? var.backup_net_ip : "" }],
+    (length(var.network_3) > 0 ? [{ id = data.ibm_pi_network.network_3[0].id, ip = var.network_3_ip }] : []),
+    (length(var.network_4) > 0 ? [{ id = data.ibm_pi_network.network_4[0].id, ip = var.network_4_ip }] : [])
+  ])
 }
 
 # Consolidate volume list

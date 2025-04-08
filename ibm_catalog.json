@@ -96,11 +96,18 @@
               "key": "network_3_ip"
             },
             {
+              "key": "network_4"
+            },
+            {
+              "key": "network_4_ip"
+            },
+            {
               "key": "placement_group"
             },
             {
-              "key": "policy_affinity",
-              "required": true
+              "key": "affinity_policy",
+              "required": true,
+              "hidden": true
             },
             {
               "key": "processor_mode"
@@ -116,6 +123,21 @@
             },
             {
               "key": "volume_tape_size"
+            },
+            {
+              "key": "create_storsight_instance"
+            },
+            {
+              "key": "pi_instance_boot_image",
+              "hidden": true
+            },
+            {
+              "key": "is_instance_boot_image",
+              "hidden": true
+            },
+            {
+              "key": "is_instance_profile",
+              "hidden": true
             }
           ],
           "outputs": [
