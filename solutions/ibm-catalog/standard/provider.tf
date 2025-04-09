@@ -57,13 +57,6 @@ provider "ibm" {
   zone             = local.powervs_zone
 }
 
-# provider "ibm" {
-#   alias            = "ibm-is"
-#   region           = lookup(local.ibm_powervs_zone_cloud_region_map, local.powervs_zone, null)
-#   zone             = local.powervs_zone
-#   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
-# }
-
 provider "ibm" {
   alias            = "ibm_sch"
   ibmcloud_api_key = var.ibmcloud_api_key

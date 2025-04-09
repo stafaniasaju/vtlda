@@ -14,19 +14,21 @@ locals {
   vpc_name = local.network_services_instance.vpc_name
   vpc_id   = local.network_services_instance.vpc_id
 
-  resource_group_id = data.ibm_is_instance.network_services_instance[0].resource_group
+  resource_group_id = var.create_storsight_instance ? data.ibm_is_instance.network_services_instance[0].resource_group : null
   security_group = try(
-    [for sg in data.ibm_is_vpc.edge_vpc_data.security_group : sg if can(regex("network-services-sg", sg.group_name))][0],
+    [for sg in data.ibm_is_vpc.edge_vpc_data[0].security_group : sg
+      if can(regex("network-services-sg", sg.group_name))
+    ][0],
     null
   )
-  security_group_ids = [local.security_group.group_id]
-  ssh_key_ids        = [data.ibm_is_instance.network_services_instance[0].keys[0].id]
-  subnets = [{
+  security_group_ids = var.create_storsight_instance ? [local.security_group.group_id] : []
+  ssh_key_ids        = var.create_storsight_instance ? [data.ibm_is_instance.network_services_instance[0].keys[0].id] : []
+  subnets = var.create_storsight_instance ? [{
     name = data.ibm_is_subnet.network_services_subnet[0].name,
     id   = data.ibm_is_subnet.network_services_subnet[0].id,
     zone = data.ibm_is_subnet.network_services_subnet[0].zone,
     cidr = data.ibm_is_subnet.network_services_subnet[0].ipv4_cidr_block
-  }]
+  }] : []
 }
 
 # Extract power virtual server workspace data

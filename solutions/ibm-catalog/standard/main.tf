@@ -3,6 +3,7 @@
 ###############################################################
 
 module "create_storsight_instance" {
+  count   = var.create_storsight_instance ? 1 : 0
   source  = "terraform-ibm-modules/landing-zone-vsi/ibm"
   version = "4.7.1"
   #providers = { ibm = ibm.ibm-is }
