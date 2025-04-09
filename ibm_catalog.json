@@ -19,12 +19,18 @@
           "working_directory": "solutions/ibm-catalog/standard",
           "dependencies": [
             {
-              "flavors": ["standard", "standard-extend", "import"],
-              "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
               "name": "deploy-arch-ibm-pvs-inf",
+              "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
+              "flavors": ["standard", "standard-extend", "import"],
               "install_type": "fullstack",
               "optional": true,
-              "version": ">=8.0.0"
+              "version": ">=8.0.0",
+              "input_mapping": [
+                  {
+                    "dependency_output": "schematics_workspace_id",
+                    "version_input": "prerequisite_workspace_id"
+                  }
+              ]
             }
           ],
           "licenses": [
