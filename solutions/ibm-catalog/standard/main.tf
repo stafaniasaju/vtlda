@@ -6,7 +6,6 @@ module "create_storsight_instance" {
   count   = var.create_storsight_instance ? 1 : 0
   source  = "terraform-ibm-modules/landing-zone-vsi/ibm"
   version = "4.7.1"
-  #providers = { ibm = ibm.ibm-is }
 
   create_security_group = false
   image_id              = data.ibm_is_image.is_instance_boot_image_data[0].id
