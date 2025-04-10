@@ -1,41 +1,23 @@
 ###############################################################
-# Data from the pre-requisite PowerVS deployable architecture
+# Deploy StorSight instance in Edge VPC
 ###############################################################
-data "ibm_schematics_workspace" "schematics_workspace" {
-  provider     = ibm.ibm_sch
-  workspace_id = var.prerequisite_workspace_id
-  location     = local.schematics_ws_location
-}
 
-data "ibm_schematics_output" "schematics_output" {
-  provider     = ibm.ibm_sch
-  workspace_id = var.prerequisite_workspace_id
-  location     = local.schematics_ws_location
-  template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
-}
+module "create_storsight_instance" {
+  count   = var.create_storsight_instance ? 1 : 0
+  source  = "terraform-ibm-modules/landing-zone-vsi/ibm"
+  version = "4.7.1"
 
-###############################################################
-# Data for Virtual Appliance Instance and Volumes creation
-###############################################################
-data "ibm_pi_placement_groups" "cloud_instance_groups" {
-  pi_cloud_instance_id = local.powervs_workspace_guid
-}
-data "ibm_pi_key" "key" {
-  pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_key_name          = local.powervs_sshkey_name
-}
-data "ibm_pi_network" "powervs_management_subnet" {
-  pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_network_name      = local.powervs_mgmt_net
-}
-data "ibm_pi_network" "powervs_backup_subnet" {
-  pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_network_name      = local.powervs_bkp_net
-}
-data "ibm_pi_network" "network_3" {
-  count                = length(var.network_3) > 0 ? 1 : 0
-  pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_network_name      = var.network_3
+  create_security_group = false
+  image_id              = data.ibm_is_image.is_instance_boot_image_data[0].id
+  machine_type          = var.is_instance_profile
+  prefix                = local.prefix
+  resource_group_id     = local.resource_group_id
+  security_group_ids    = local.security_group_ids
+  ssh_key_ids           = local.ssh_key_ids
+  subnets               = local.subnets
+  user_data             = ""
+  vpc_id                = local.vpc_id
+  vsi_per_subnet        = 1
 }
 
 ###############################################################
@@ -51,26 +33,25 @@ resource "ibm_pi_instance" "instance" {
   pi_sys_type                    = var.system_type
   pi_storage_type                = var.storage_type
   pi_key_pair_name               = length(local.powervs_sshkey_name) > 0 ? data.ibm_pi_key.key.id : null
-  pi_affinity_policy             = length(var.pvm_instances) > 0 ? var.policy_affinity : null
+  pi_affinity_policy             = length(var.pvm_instances) > 0 ? var.affinity_policy : null
   pi_anti_affinity_instances     = length(var.pvm_instances) > 0 ? split(",", var.pvm_instances) : null
   pi_placement_group_id          = local.placement_group_id
-  pi_license_repository_capacity = var.repository_capacity # deprecated
+  pi_license_repository_capacity = var.repository_capacity == 0 ? 1 : var.repository_capacity # deprecated
   pi_network {
     network_id = data.ibm_pi_network.powervs_management_subnet.id
     ip_address = length(var.management_net_ip) > 0 ? var.management_net_ip : ""
   }
   dynamic "pi_network" {
-    for_each = local.powervs_bkp_net == "" ? [] : [1]
+    for_each = local.pi_subnet_list
     content {
-      network_id = data.ibm_pi_network.powervs_backup_subnet.id
-      ip_address = length(var.backup_net_ip) > 0 ? var.backup_net_ip : ""
+      network_id = pi_network.value.id
+      ip_address = pi_network.value.ip != null && pi_network.value.ip != "" ? pi_network.value.ip : null
     }
   }
-  dynamic "pi_network" {
-    for_each = var.network_3 == "" ? [] : [1]
-    content {
-      network_id = data.ibm_pi_network.network_3[0].id
-      ip_address = length(var.network_3_ip) > 0 ? var.network_3_ip : ""
+  lifecycle {
+    precondition {
+      condition     = local.pi_image_id != null
+      error_message = "The provided PowerVS boot image name ${var.pi_instance_boot_image} is not found in ibm_pi_catalog_images."
     }
   }
 }
