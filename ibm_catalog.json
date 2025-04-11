@@ -1,21 +1,21 @@
 {
   "products": [
     {
-      "name": "vtlda",
+      "name": "storsafe-pvs-da",
       "label": "FalconStor StorSafe PowerVS Deployable Architecture",
       "product_kind": "solution",
-      "version": "0.0.5",
+      "version": "1.0.0",
       "tags": ["network_vpc", "Technology"],
       "keywords": ["Power", "IBM i", "Disaster Recovery", "Backup", "NAS", "VTL", "Deduplication", "Migration", "Veeam"],
       "short_description": "Reduce your monthly PowerVS backup storage cost by up to 90%, while improving your existing backup solution performance.",
       "long_description": "FalconStor StorSafe is a software solution that optimizes backup and restore, to improve performance and significantly reduce backup storage costs, all without requiring changes to the existing requirement. With its integrated deduplication, the solution removes redundant copies of data, thereby reducing capacity requirements, decreasing storage costs, and minimizing replication and restore times. StorSafe VTL can be used with all leading backup solutions, and enables both hybrid and native-cloud backup, as well as both workload and tape migration to the cloud. StorSafe VTL also supports NFS and SMB interfaces in a NAS environment. AIX and Linux systems can use StorSafe as an NFS server for applications such as Oracle RMAN or SAP Hana Studio. You can also store backup files created with the Veeam Agent for IBM AIX on backup repositories managed by Veeam Backup & Replication (VBR).",
-      "offering_docs_url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/README.md",
-      "support_details": "This is a demonstration and no official support is given.",
+      "offering_docs_url": "https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStor%20StorSafe%20for%20IBM%20Power%20Deployment%20Guide.pdf",
+      "support_details": "For support refer to the following link https://cloud.ibm.com/unifiedsupport/supportcenter.",
       "flavors": [
         {
           "label": "Standard",
-          "name": "vtlda",
-          "install_type": "extend",
+          "name": "standard",
+          "install_type": "extension",
           "working_directory": "solutions/ibm-catalog/standard",
           "dependencies": [
             {
@@ -35,8 +35,8 @@
           ],
           "licenses": [
             {
-              "name": "Apache License 2.0",
-              "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/LICENSE"
+              "name": "FalconStor License",
+              "url": "https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/versions/5535d0a2-6502-4a18-a81f-77d1d1015991.wc-baa98db7-b9d9-4b60-bf51-c3700a84d116/licenses/LICENSE"
             }
           ],
           "configuration": [
@@ -180,24 +180,38 @@
               "role_crns": ["crn:v1:bluemix:public:iam::::role:Administrator"]
             }
           ],
-          "release_notes_url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/CHANGELOG.md",
+          "release_notes_url": "https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStor StorSafe with StorSight Release Notes.pdf",
           "architecture": {
+            "features": [
+              {
+                "title": "PowerVS Appliance Instance",
+                "description": "1"
+              },
+              {
+                "title": "Number of PowerVS Volumes",
+                "description": "3"
+              },
+              {
+                "title": "Number of Windows VSI on VPC (Optional)",
+                "description": "1"
+              }
+            ],
             "diagrams": [
               {
                 "diagram": {
                   "caption": "Architecture diagram",
-                  "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/xdocs/architecture.svg",
+                  "url": "https://raw.githubusercontent.com/falconstor-code/StorSafe-DA/main/xdocs/architecture.svg",
                   "metadata": []
                 },
-                "description": "A simple deployable architecture."
+                "description": "FalconStor StorSafe PowerVS Deployable Architecture"
               },
               {
                 "diagram": {
-                  "caption": "Terraform resources",
-                  "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/xdocs/graph.svg",
+                  "caption": "FalconStor Software",
+                  "url": "https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStorLogo.png",
                   "metadata": []
                 },
-                "description": "A view of the Terraform constructs used within the deployable architecture."
+                "description": "FalconStor Software Logo"
               }
             ]
           }
