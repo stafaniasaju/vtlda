@@ -15,7 +15,7 @@
         {
           "label": "Standard",
           "name": "standard",
-          "install_type": "extend",
+          "install_type": "extension",
           "working_directory": "solutions/ibm-catalog/standard",
           "dependencies": [
             {
