@@ -3,7 +3,7 @@
 ###############################################################
 output "storsight_vsi" {
   description = "A list of VSI with name, id, zone, and primary ipv4 address"
-  value       = var.create_storsight_instance ? module.create_storsight_instance.list[0] : []
+  value       = var.create_storsight_instance ? module.create_storsight_instance : []
 }
 
 output "powervs_workspace_name" {
