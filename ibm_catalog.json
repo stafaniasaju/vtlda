@@ -208,7 +208,7 @@
               {
                 "diagram": {
                   "caption": "FalconStor Software",
-                  "url": "https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStorLogo.png",
+                  "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/xdocs/graph.svg",
                   "metadata": []
                 },
                 "description": "FalconStor Software Logo"
