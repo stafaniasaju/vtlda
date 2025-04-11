@@ -207,11 +207,11 @@
               },
               {
                 "diagram": {
-                  "caption": "FalconStor Software",
-                  "url": "https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStorLogo.png",
+                  "caption": "Terraform resources",
+                  "url": "https://raw.githubusercontent.com/falconstor-code/vtlda/main/xdocs/graph.svg",
                   "metadata": []
                 },
-                "description": "FalconStor Software Logo"
+                "description": "A view of the Terraform constructs used within the deployable architecture"
               }
             ]
           }
