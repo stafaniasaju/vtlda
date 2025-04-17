@@ -66,28 +66,89 @@ variable "backup_net_ip" {
   default     = ""
 }
 
-variable "network_3" {
-  description = "The network ID or name of a third subnet if already existing in the PowerVS workspace to assign to the StorSafe VTL instance."
-  type        = string
-  default     = ""
+variable "pi_private_subnet_3" {
+  description = "Configuration for a third private subnet. Set to null to skip creating this subnet."
+
+  type = object({
+    name = string
+    cidr = string
+    ip   = optional(string)
+  })
+
+  default = null
+
+  validation {
+    condition = (
+      var.pi_private_subnet_3 == null ||
+      (
+        can(cidrnetmask(try(var.pi_private_subnet_3.cidr, ""))) &&
+        (
+          startswith(try(var.pi_private_subnet_3.cidr, ""), "10.") ||
+          startswith(try(var.pi_private_subnet_3.cidr, ""), "192.168.") ||
+          can(regex("^172\\.(1[6-9]|2[0-9]|3[0-1])\\.", try(var.pi_private_subnet_3.cidr, "")))
+        ) &&
+        (
+          try(var.pi_private_subnet_3.ip, null) == null ||
+          can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}$", var.pi_private_subnet_3.ip))
+        )
+      )
+    )
+
+    error_message = <<EOT
+If provided, 'cidr' must:
+- Be a valid IPv4 CIDR block (e.g., 10.0.0.0/16, 172.16–31.0.0/16, or 192.168.0.0/16),
+- Fall within private IP address ranges.
+
+If 'ip' is provided, it must be a valid IPv4 address (e.g., 192.168.1.10).
+EOT
+  }
 }
 
-variable "network_3_ip" {
-  description = "The IP address from the network_3 subnet to be assigned to the StorSafe VTL instance."
-  type        = string
-  default     = ""
+variable "pi_private_subnet_4" {
+  description = "Configuration for a third private subnet. Set to null to skip creating this subnet."
+
+  type = object({
+    name = string
+    cidr = string
+    ip   = optional(string)
+  })
+
+  default = null
+
+  validation {
+    condition = (
+      var.pi_private_subnet_4 == null ||
+      (
+        can(cidrnetmask(try(var.pi_private_subnet_4.cidr, ""))) &&
+        (
+          startswith(try(var.pi_private_subnet_4.cidr, ""), "10.") ||
+          startswith(try(var.pi_private_subnet_4.cidr, ""), "192.168.") ||
+          can(regex("^172\\.(1[6-9]|2[0-9]|3[0-1])\\.", try(var.pi_private_subnet_4.cidr, "")))
+        ) &&
+        (
+          try(var.pi_private_subnet_4.ip, null) == null ||
+          can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}$", var.pi_private_subnet_4.ip))
+        )
+      )
+    )
+
+    error_message = <<EOT
+If provided, 'cidr' must:
+- Be a valid IPv4 CIDR block (e.g., 10.0.0.0/16, 172.16–31.0.0/16, or 192.168.0.0/16),
+- Fall within private IP address ranges.
+
+If 'ip' is provided, it must be a valid IPv4 address (e.g., 192.168.1.10).
+EOT
+  }
 }
 
-variable "network_4" {
-  description = "The network ID or name of a third subnet if already existing in the PowerVS workspace to assign to the StorSafe VTL instance."
-  type        = string
-  default     = ""
-}
-
-variable "network_4_ip" {
-  description = "The IP address from the network_3 subnet to be assigned to the StorSafe VTL instance."
-  type        = string
-  default     = ""
+variable "existing_powervs_subnets" {
+  description = "Configuration for a existing private subnets to be attached to the StorSafe VTL instance including its name, and an optional IP address to assign to StorSafe VTL instance. Only up to 2 pre-existing subnets would be attached."
+  type = list(object({
+    name = string
+    ip   = optional(string)
+  }))
+  default = null
 }
 
 variable "placement_group" {
@@ -103,9 +164,9 @@ variable "affinity_policy" {
 }
 
 variable "pvm_instances" {
-  description = "The comma-separated list of PVM instance IDs for the storage anti-affinity policy used for placement of the StorSafe instance volume, as defined for the selected Power Systems Virtual Server CRN."
-  type        = string
-  default     = ""
+  description = "List of PVM instance names to which the storage anti-affinity policy should be applied. Example [\"instance1\", \"instance2\"] Set to null to disable anti-affinity."
+  type        = list(string)
+  default     = []
 }
 
 variable "volume_configuration_size" {
@@ -143,7 +204,6 @@ variable "is_instance_boot_image" {
   description = "The boot image to be used while creating the StorSight VPC instance."
   type        = string
   default     = "ibm-windows-server-2022-full-standard-amd64-23"
-  #default = "faulty"
 }
 
 variable "is_instance_profile" {

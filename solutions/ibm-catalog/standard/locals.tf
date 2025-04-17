@@ -60,16 +60,49 @@ locals {
 # Consolidate subnet list
 locals {
   pi_subnet_list = flatten([
-    [{ id = data.ibm_pi_network.powervs_backup_subnet.id, ip = length(var.backup_net_ip) > 0 ? var.backup_net_ip : "" }],
-    (length(var.network_3) > 0 ? [{ id = data.ibm_pi_network.network_3[0].id, ip = var.network_3_ip }] : []),
-    (length(var.network_4) > 0 ? [{ id = data.ibm_pi_network.network_4[0].id, ip = var.network_4_ip }] : [])
+    [{
+      cidr = data.ibm_pi_network.powervs_management_subnet.cidr
+      id   = data.ibm_pi_network.powervs_management_subnet.id,
+      ip   = var.management_net_ip != null && var.management_net_ip != "" ? var.management_net_ip : null
+      name = data.ibm_pi_network.powervs_management_subnet.pi_network_name,
+    }],
+    [{
+      cidr = data.ibm_pi_network.powervs_backup_subnet.cidr
+      id   = data.ibm_pi_network.powervs_backup_subnet.id,
+      ip   = var.backup_net_ip != null && var.backup_net_ip != "" ? var.backup_net_ip : null
+      name = data.ibm_pi_network.powervs_backup_subnet.pi_network_name,
+    }],
+    var.pi_private_subnet_3 != null ?
+    [{
+      cidr = resource.ibm_pi_network.pi_private_subnet_3[0].pi_cidr
+      id   = resource.ibm_pi_network.pi_private_subnet_3[0].network_id
+      ip   = var.pi_private_subnet_3.ip
+      name = resource.ibm_pi_network.pi_private_subnet_3[0].pi_network_name
+    }]
+    : [],
+    var.pi_private_subnet_4 != null ?
+    [{
+      cidr = resource.ibm_pi_network.pi_private_subnet_4[0].pi_cidr
+      id   = resource.ibm_pi_network.pi_private_subnet_4[0].network_id
+      ip   = var.pi_private_subnet_4.ip
+      name = resource.ibm_pi_network.pi_private_subnet_4[0].pi_network_name
+    }]
+    : [],
+    var.existing_powervs_subnets != null && length(var.existing_powervs_subnets) > 0 ? [
+      for subnet in var.existing_powervs_subnets : {
+        id   = data.ibm_pi_network.existing_powervs_subnets[subnet.name].id
+        name = subnet.name
+        cidr = data.ibm_pi_network.existing_powervs_subnets[subnet.name].cidr
+        ip   = subnet.ip
+      }
+    ] : []
   ])
 }
 
 # Consolidate volume list
 locals {
   volume_map = [resource.ibm_pi_volume.configuration_volume, resource.ibm_pi_volume.index_volume, resource.ibm_pi_volume.tape_volume]
-  powervs_stor_safe_vtl_volume_list = [
+  storsafe_vtl_volume_list = [
     for volume in local.volume_map : {
       volume_id               = volume.volume_id
       volume_io_throttle_rate = volume.io_throttle_rate
