@@ -53,9 +53,10 @@ locals {
 
 # Extract the placement_group_id and anti-affinity configuration
 locals {
-  placement_group      = [for x in data.ibm_pi_placement_groups.cloud_instance_groups.placement_groups : x if x.name == var.placement_group]
-  placement_group_id   = length(local.placement_group) > 0 ? local.placement_group[0].id : ""
-  enable_anti_affinity = var.pvm_instances != null ? (length(var.pvm_instances) > 0 ? true : false) : true
+  placement_group                = [for x in data.ibm_pi_placement_groups.cloud_instance_groups.placement_groups : x if x.name == var.placement_group]
+  placement_group_id             = length(local.placement_group) > 0 ? local.placement_group[0].id : ""
+  enable_anti_affinity           = var.pvm_instances != null ? (length(var.pvm_instances) > 0 ? true : false) : false
+  enable_existing_subnets_attach = var.existing_powervs_subnets != null ? (length(var.existing_powervs_subnets) > 0 ? true : false) : false
 }
 
 # Consolidate subnet list
@@ -89,7 +90,7 @@ locals {
       name = resource.ibm_pi_network.private_subnet_4[0].pi_network_name
     }]
     : [],
-    var.existing_powervs_subnets != null && length(var.existing_powervs_subnets) > 0 ? [
+    local.enable_existing_subnets_attach ? [
       for subnet in var.existing_powervs_subnets : {
         id   = data.ibm_pi_network.existing_powervs_subnets[subnet.name].id
         name = subnet.name
