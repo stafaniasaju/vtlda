@@ -14,16 +14,16 @@ locals {
   vpc_name = local.network_services_instance.vpc_name
   vpc_id   = local.network_services_instance.vpc_id
 
-  resource_group_id = var.create_storsight_instance ? data.ibm_is_instance.network_services_instance[0].resource_group : null
+  resource_group_id = var.create_windows_instance ? data.ibm_is_instance.network_services_instance[0].resource_group : null
   security_group = try(
     [for sg in data.ibm_is_vpc.edge_vpc_data[0].security_group : sg
       if can(regex("network-services-sg", sg.group_name))
     ][0],
     null
   )
-  security_group_ids = var.create_storsight_instance ? [local.security_group.group_id] : []
-  ssh_key_ids        = var.create_storsight_instance ? [data.ibm_is_instance.network_services_instance[0].keys[0].id] : []
-  subnets = var.create_storsight_instance ? [{
+  security_group_ids = var.create_windows_instance ? [local.security_group.group_id] : []
+  ssh_key_ids        = var.create_windows_instance ? [data.ibm_is_instance.network_services_instance[0].keys[0].id] : []
+  subnets = var.create_windows_instance ? [{
     name = data.ibm_is_subnet.network_services_subnet[0].name,
     id   = data.ibm_is_subnet.network_services_subnet[0].id,
     zone = data.ibm_is_subnet.network_services_subnet[0].zone,
@@ -56,7 +56,7 @@ locals {
   placement_group                = [for x in data.ibm_pi_placement_groups.cloud_instance_groups.placement_groups : x if x.name == var.placement_group]
   placement_group_id             = length(local.placement_group) > 0 ? local.placement_group[0].id : ""
   enable_anti_affinity           = var.pvm_instances != null ? (length(var.pvm_instances) > 0 ? true : false) : false
-  enable_existing_subnets_attach = var.existing_powervs_subnets != null ? (length(var.existing_powervs_subnets) > 0 ? true : false) : false
+  enable_existing_subnets_attach = var.existing_subnets != null ? (length(var.existing_subnets) > 0 ? true : false) : false
 }
 
 # Consolidate subnet list
@@ -91,10 +91,10 @@ locals {
     }]
     : [],
     local.enable_existing_subnets_attach ? [
-      for subnet in var.existing_powervs_subnets : {
-        id   = data.ibm_pi_network.existing_powervs_subnets[subnet.name].id
+      for subnet in var.existing_subnets : {
+        id   = data.ibm_pi_network.existing_subnets[subnet.name].id
         name = subnet.name
-        cidr = data.ibm_pi_network.existing_powervs_subnets[subnet.name].cidr
+        cidr = data.ibm_pi_network.existing_subnets[subnet.name].cidr
         ip   = subnet.ip
       }
     ] : []

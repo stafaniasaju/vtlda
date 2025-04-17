@@ -16,13 +16,13 @@ output "powervs_zone" {
   value       = local.powervs_zone
 }
 
-output "storsight_instance" {
+output "windows_instance" {
   description = "Details of Windows VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone."
-  value       = var.create_storsight_instance ? module.create_storsight_instance[0].list[0] : {}
+  value       = var.create_windows_instance ? module.create_windows_instance[0].list[0] : {}
 }
 
 output "storsafe_vtl_instance" {
-  description = "The name, id and private IPS of FalconStor StorSafe vtl instance."
+  description = "The name, id and private IPS of FalconStor StorSafe instance."
   value = {
     instance_name        = module.pi_instance.pi_instance_name
     instance_id          = module.pi_instance.pi_instance_id
@@ -31,7 +31,7 @@ output "storsafe_vtl_instance" {
 }
 
 output "storsafe_vtl_instance_subnets" {
-  description = "The subnets attached to the FalconStor StorSafe vtl instance."
+  description = "The subnets attached to the FalconStor StorSafe instance."
   value       = local.pi_subnet_list
 }
 

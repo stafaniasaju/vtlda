@@ -13,55 +13,55 @@ variable "prerequisite_workspace_id" {
 }
 
 variable "repository_capacity" {
-  description = "The StorSafe VTL licensed repository capacity in TB."
+  description = "The StorSafe licensed repository capacity in TB."
   type        = number
   default     = 1
 }
 
 variable "memory" {
-  description = "The amount of memory to assign to the StorSafe VTL instance in GB according to the following formula: memory >= 16 + (2 * license_repository_capacity)."
+  description = "The amount of memory to assign to the StorSafe instance in GB according to the following formula: memory >= 16 + (2 * license_repository_capacity)."
   type        = number
   default     = 18
 
 }
 
 variable "vcpus" {
-  description = "The number of vCPUs, AKA virtual processors, to assign to the StorSafe VTL instance; one vCPU is equal to one physical CPU core."
+  description = "The number of vCPUs, AKA virtual processors, to assign to the StorSafe instance; one vCPU is equal to one physical CPU core."
   type        = number
   default     = 1
 }
 
 variable "instance_name" {
-  description = "The name to assign to the StorSafe VTL instance."
+  description = "The name to assign to the StorSafe instance."
   type        = string
 }
 
 variable "processor_mode" {
-  description = "The type of processor mode in which the StorSafe VTL instance will run: 'shared', 'capped', or 'dedicated'."
+  description = "The type of processor mode in which the StorSafe instance will run: 'shared', 'capped', or 'dedicated'."
   type        = string
   default     = "shared"
 }
 
 variable "system_type" {
-  description = "The type of system on which to create the StorSafe VTL instance: 's922' or 'e980' for Power 9; 's1022' for Power 10 if present in the selected datacenter."
+  description = "The type of system on which to create the StorSafe instance: 's922' or 'e980' for Power 9; 's1022' for Power 10 if present in the selected datacenter."
   type        = string
   default     = "s922"
 }
 
 variable "storage_type" {
-  description = "The type of storage tier for all volumes to attach to the StorSafe VTL instance: 'tier1' (high performance) or 'tier3'."
+  description = "The type of storage tier for all volumes to attach to the StorSafe instance: 'tier1' (high performance) or 'tier3'."
   type        = string
   default     = "tier1"
 }
 
 variable "management_net_ip" {
-  description = "The IP address from the management subnet to be assigned to the StorSafe VTL instance."
+  description = "The IP address from the management subnet to be assigned to the StorSafe instance."
   type        = string
   default     = ""
 }
 
 variable "backup_net_ip" {
-  description = "The IP address from the backup subnet to be assigned to the StorSafe VTL instance."
+  description = "The IP address from the backup subnet to be assigned to the StorSafe instance."
   type        = string
   default     = ""
 }
@@ -167,9 +167,9 @@ variable "private_subnet_4" {
   }
 }
 
-variable "existing_powervs_subnets" {
+variable "existing_subnets" {
   description = <<EOT
-  Configuration for a existing private subnets to be attached to the StorSafe VTL instance including its name, and an optional IP address to assign to StorSafe VTL instance. To configure, follow the example format provided. Mandatory field - 'name'. Optional field - 'ip'.
+  Configuration for a existing private subnets to be attached to the StorSafe instance including its name, and an optional IP address to assign to StorSafe instance. To configure, follow the example format provided. Mandatory field - 'name'. Optional field - 'ip'.
   [
     {
       "name" : "subnet_x",
@@ -188,13 +188,13 @@ variable "existing_powervs_subnets" {
 }
 
 variable "placement_group" {
-  description = "The server placement group name where the StorSafe VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN."
+  description = "The server placement group name where the StorSafe instance will be placed, as defined for the selected Power Systems Virtual Server CRN."
   type        = string
   default     = ""
 }
 
 variable "affinity_policy" {
-  description = "The storage anti-affinity policy to use for placement of the StorSafe VTL volume if PVM instance IDs are specified."
+  description = "The storage anti-affinity policy to use for placement of the StorSafe volume if PVM instance IDs are specified."
   type        = string
   default     = "anti-affinity"
 }
@@ -206,44 +206,44 @@ variable "pvm_instances" {
 }
 
 variable "volume_configuration_size" {
-  description = "The size of the block storage volume for the StorSafe VTL Configuration Repository in GB."
+  description = "The size of the block storage volume for the StorSafe Configuration Repository in GB."
   type        = number
   default     = 20
 }
 
 variable "volume_index_size" {
-  description = "The size of the block storage volume for the index of StorSafe VTL Deduplication Repository in GB; the maximum size of a volume is 2 TB; attach extra volumes later, if necessary."
+  description = "The size of the block storage volume for the index of StorSafe Deduplication Repository in GB; the maximum size of a volume is 2 TB; attach extra volumes later, if necessary."
   type        = number
   default     = 1024
 }
 
 variable "volume_tape_size" {
-  description = "The size of the block storage volume for the StorSafe VTL tape backup cache in GB; the maximum size of a volume is 2 TB; attach extra volumes later, if necessary."
+  description = "The size of the block storage volume for the StorSafe tape backup cache in GB; the maximum size of a volume is 2 TB; attach extra volumes later, if necessary."
   type        = number
   default     = 1024
 }
 
-variable "create_storsight_instance" {
-  description = "The boolean option to create a windows StorSight instance in the Edge VPC of the pre-requisite Landing zone infrastructure."
+variable "create_windows_instance" {
+  description = "The boolean option to create a windows instance in the Edge VPC of the pre-requisite Landing zone infrastructure."
   type        = bool
   default     = false
 }
 
 # hidden variables
 variable "pi_instance_boot_image" {
-  description = "The boot image to be used while creating the StorSafe VTL PowerVS instance."
+  description = "The boot image to be used while creating the StorSafe PowerVS instance."
   type        = string
   default     = "VTL-FalconStor-11_13_001"
 }
 
 variable "is_instance_boot_image" {
-  description = "The boot image to be used while creating the StorSight VPC instance."
+  description = "The boot image to be used while creating the VPC instance."
   type        = string
   default     = "ibm-windows-server-2022-full-standard-amd64-23"
 }
 
 variable "is_instance_profile" {
-  description = "The boot image to be used while creating the StorSight VPC instance."
+  description = "The boot image to be used while creating the  VPC instance."
   type        = string
   default     = "bx2-2x8"
 }
