@@ -72,20 +72,20 @@ locals {
       ip   = var.backup_net_ip != null && var.backup_net_ip != "" ? var.backup_net_ip : null
       name = data.ibm_pi_network.powervs_backup_subnet.pi_network_name,
     }],
-    var.pi_private_subnet_3 != null ?
+    var.private_subnet_3 != null ?
     [{
-      cidr = resource.ibm_pi_network.pi_private_subnet_3[0].pi_cidr
-      id   = resource.ibm_pi_network.pi_private_subnet_3[0].network_id
-      ip   = var.pi_private_subnet_3.ip
-      name = resource.ibm_pi_network.pi_private_subnet_3[0].pi_network_name
+      cidr = resource.ibm_pi_network.private_subnet_3[0].pi_cidr
+      id   = resource.ibm_pi_network.private_subnet_3[0].network_id
+      ip   = var.private_subnet_3.ip
+      name = resource.ibm_pi_network.private_subnet_3[0].pi_network_name
     }]
     : [],
-    var.pi_private_subnet_4 != null ?
+    var.private_subnet_4 != null ?
     [{
-      cidr = resource.ibm_pi_network.pi_private_subnet_4[0].pi_cidr
-      id   = resource.ibm_pi_network.pi_private_subnet_4[0].network_id
-      ip   = var.pi_private_subnet_4.ip
-      name = resource.ibm_pi_network.pi_private_subnet_4[0].pi_network_name
+      cidr = resource.ibm_pi_network.private_subnet_4[0].pi_cidr
+      id   = resource.ibm_pi_network.private_subnet_4[0].network_id
+      ip   = var.private_subnet_4.ip
+      name = resource.ibm_pi_network.private_subnet_4[0].pi_network_name
     }]
     : [],
     var.existing_powervs_subnets != null && length(var.existing_powervs_subnets) > 0 ? [

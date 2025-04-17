@@ -24,22 +24,22 @@ module "create_storsight_instance" {
 # Create Private Subnets in PowerVS Workspace
 ###############################################################
 
-resource "ibm_pi_network" "pi_private_subnet_3" {
-  count                = var.pi_private_subnet_3 != null ? 1 : 0
+resource "ibm_pi_network" "private_subnet_3" {
+  count                = var.private_subnet_3 != null ? 1 : 0
   pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_network_name      = var.pi_private_subnet_3.name
-  pi_cidr              = var.pi_private_subnet_3.cidr
+  pi_network_name      = var.private_subnet_3.name
+  pi_cidr              = var.private_subnet_3.cidr
   pi_network_type      = "vlan"
   pi_network_mtu       = 9000
 }
 
-resource "ibm_pi_network" "pi_private_subnet_4" {
-  count = var.pi_private_subnet_4 != null ? 1 : 0
+resource "ibm_pi_network" "private_subnet_4" {
+  count = var.private_subnet_4 != null ? 1 : 0
 
-  depends_on           = [ibm_pi_network.pi_private_subnet_3]
+  depends_on           = [ibm_pi_network.private_subnet_3]
   pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_network_name      = var.pi_private_subnet_4.name
-  pi_cidr              = var.pi_private_subnet_4.cidr
+  pi_network_name      = var.private_subnet_4.name
+  pi_cidr              = var.private_subnet_4.cidr
   pi_network_type      = "vlan"
   pi_network_mtu       = 9000
 }

@@ -99,10 +99,10 @@
               "key": "backup_net_ip"
             },
             {
-              "key": "pi_private_subnet_3"
+              "key": "private_subnet_3"
             },
             {
-              "key": "pi_private_subnet_4"
+              "key": "private_subnet_4"
             },
             {
               "key": "existing_powervs_subnets"

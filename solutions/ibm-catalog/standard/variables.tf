@@ -66,9 +66,16 @@ variable "backup_net_ip" {
   default     = ""
 }
 
-variable "pi_private_subnet_3" {
-  description = "Configuration for a third private subnet. Set to null to skip creating this subnet."
-
+variable "private_subnet_3" {
+  description = <<EOT
+  Configure this input to create a new subnet for your instance. Follow the example format provided. To skip subnet creation, set this value to null.
+  Example:
+    {
+      name = "vtl_subnet"
+      cidr = "10.70.0.0/24"
+      ip   = "10.70.21.0"
+    }
+  EOT
   type = object({
     name = string
     cidr = string
@@ -79,33 +86,41 @@ variable "pi_private_subnet_3" {
 
   validation {
     condition = (
-      var.pi_private_subnet_3 == null ||
+      var.private_subnet_3 == null ||
       (
-        can(cidrnetmask(try(var.pi_private_subnet_3.cidr, ""))) &&
+        can(cidrnetmask(try(var.private_subnet_3.cidr, ""))) &&
         (
-          startswith(try(var.pi_private_subnet_3.cidr, ""), "10.") ||
-          startswith(try(var.pi_private_subnet_3.cidr, ""), "192.168.") ||
-          can(regex("^172\\.(1[6-9]|2[0-9]|3[0-1])\\.", try(var.pi_private_subnet_3.cidr, "")))
+          startswith(try(var.private_subnet_3.cidr, ""), "10.") ||
+          startswith(try(var.private_subnet_3.cidr, ""), "192.168.") ||
+          can(regex("^172\\.(1[6-9]|2[0-9]|3[0-1])\\.", try(var.private_subnet_3.cidr, "")))
         ) &&
         (
-          try(var.pi_private_subnet_3.ip, null) == null ||
-          can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}$", var.pi_private_subnet_3.ip))
+          try(var.private_subnet_3.ip, null) == null ||
+          can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}$", var.private_subnet_3.ip))
         )
       )
     )
 
     error_message = <<EOT
-If provided, 'cidr' must:
-- Be a valid IPv4 CIDR block (e.g., 10.0.0.0/16, 172.16–31.0.0/16, or 192.168.0.0/16),
-- Fall within private IP address ranges.
+    If provided, 'cidr' must:
+    - Be a valid IPv4 CIDR block (e.g., 10.0.0.0/16, 172.16–31.0.0/16, or 192.168.0.0/16),
+    - Fall within private IP address ranges.
 
-If 'ip' is provided, it must be a valid IPv4 address (e.g., 192.168.1.10).
-EOT
+    If 'ip' is provided, it must be a valid IPv4 address (e.g., 192.168.1.10).
+    EOT
   }
 }
 
-variable "pi_private_subnet_4" {
-  description = "Configuration for a third private subnet. Set to null to skip creating this subnet."
+variable "private_subnet_4" {
+  description = <<EOT
+  Configure this input to create a new subnet for your instance. Follow the example format provided. To skip subnet creation, set this value to null.
+  Example:
+    {
+      name = "vtl_subnet"
+      cidr = "10.70.0.0/24"
+      ip   = "10.70.21.0"
+    }
+  EOT
 
   type = object({
     name = string
@@ -117,33 +132,39 @@ variable "pi_private_subnet_4" {
 
   validation {
     condition = (
-      var.pi_private_subnet_4 == null ||
+      var.private_subnet_4 == null ||
       (
-        can(cidrnetmask(try(var.pi_private_subnet_4.cidr, ""))) &&
+        can(cidrnetmask(try(var.private_subnet_4.cidr, ""))) &&
         (
-          startswith(try(var.pi_private_subnet_4.cidr, ""), "10.") ||
-          startswith(try(var.pi_private_subnet_4.cidr, ""), "192.168.") ||
-          can(regex("^172\\.(1[6-9]|2[0-9]|3[0-1])\\.", try(var.pi_private_subnet_4.cidr, "")))
+          startswith(try(var.private_subnet_4.cidr, ""), "10.") ||
+          startswith(try(var.private_subnet_4.cidr, ""), "192.168.") ||
+          can(regex("^172\\.(1[6-9]|2[0-9]|3[0-1])\\.", try(var.private_subnet_4.cidr, "")))
         ) &&
         (
-          try(var.pi_private_subnet_4.ip, null) == null ||
-          can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}$", var.pi_private_subnet_4.ip))
+          try(var.private_subnet_4.ip, null) == null ||
+          can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}$", var.private_subnet_4.ip))
         )
       )
     )
 
     error_message = <<EOT
-If provided, 'cidr' must:
-- Be a valid IPv4 CIDR block (e.g., 10.0.0.0/16, 172.16–31.0.0/16, or 192.168.0.0/16),
-- Fall within private IP address ranges.
+    If provided, 'cidr' must:
+    - Be a valid IPv4 CIDR block (e.g., 10.0.0.0/16, 172.16–31.0.0/16, or 192.168.0.0/16),
+    - Fall within private IP address ranges.
 
-If 'ip' is provided, it must be a valid IPv4 address (e.g., 192.168.1.10).
-EOT
+    If 'ip' is provided, it must be a valid IPv4 address (e.g., 192.168.1.10).
+    EOT
   }
 }
 
 variable "existing_powervs_subnets" {
-  description = "Configuration for a existing private subnets to be attached to the StorSafe VTL instance including its name, and an optional IP address to assign to StorSafe VTL instance. Only up to 2 pre-existing subnets would be attached."
+  description = <<EOT
+  Configuration for a existing private subnets to be attached to the StorSafe VTL instance including its name, and an optional IP address to assign to StorSafe VTL instance. To configure, follow the example format provided.
+  {
+    name = "subnet_x"
+    ip   = "10.53.33.0"
+  }
+  EOT
   type = list(object({
     name = string
     ip   = optional(string)
