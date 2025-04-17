@@ -73,7 +73,7 @@ variable "private_subnet_3" {
     {
       name = "vtl_subnet"
       cidr = "10.70.0.0/24"
-      ip   = "10.70.21.0"
+      ip   = "10.70.0.21"
     }
   EOT
   type = object({
@@ -118,7 +118,7 @@ variable "private_subnet_4" {
     {
       name = "vtl_subnet"
       cidr = "10.70.0.0/24"
-      ip   = "10.70.21.0"
+      ip   = "10.70.0.21"
     }
   EOT
 
