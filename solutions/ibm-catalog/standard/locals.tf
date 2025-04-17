@@ -51,10 +51,11 @@ locals {
   pi_image_id = lookup(local.catalog_images, var.pi_instance_boot_image, null)
 }
 
-# Extract the placement_group_id
+# Extract the placement_group_id and anti-affinity configuration
 locals {
-  placement_group    = [for x in data.ibm_pi_placement_groups.cloud_instance_groups.placement_groups : x if x.name == var.placement_group]
-  placement_group_id = length(local.placement_group) > 0 ? local.placement_group[0].id : ""
+  placement_group      = [for x in data.ibm_pi_placement_groups.cloud_instance_groups.placement_groups : x if x.name == var.placement_group]
+  placement_group_id   = length(local.placement_group) > 0 ? local.placement_group[0].id : ""
+  enable_anti_affinity = var.pvm_instances != null ? (length(var.pvm_instances) > 0 ? true : false) : true
 }
 
 # Consolidate subnet list

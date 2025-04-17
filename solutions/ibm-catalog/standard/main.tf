@@ -63,8 +63,8 @@ module "pi_instance" {
   pi_cpu_proc_type               = var.processor_mode
   pi_boot_image_storage_tier     = var.storage_type
   pi_placement_group_id          = local.placement_group_id
-  pi_affinity_policy             = length(var.pvm_instances) > 0 ? var.affinity_policy : null
-  pi_anti_affinity               = length(var.pvm_instances) > 0 ? { anti_affinity_instances = var.pvm_instances } : null
+  pi_affinity_policy             = local.enable_anti_affinity ? var.affinity_policy : null
+  pi_anti_affinity               = local.enable_anti_affinity ? { anti_affinity_instances = var.pvm_instances } : null
   pi_license_repository_capacity = var.repository_capacity == 0 ? 1 : var.repository_capacity
 }
 
