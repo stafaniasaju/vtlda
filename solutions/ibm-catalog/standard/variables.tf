@@ -68,12 +68,17 @@ variable "backup_net_ip" {
 
 variable "private_subnet_3" {
   description = <<EOT
-  Configure this input to create a new subnet for your instance. Follow the example format provided. To skip subnet creation, set this value to null.
-  Example:
+  Configure this input to create a new subnet for your instance. To skip subnet creation, set this value to null. Follow the example formats to configure. Mandatory fields - 'name', 'cidr'. Optional field - 'ip'.
+  Subnet creation with ip assign example:
     {
       name = "vtl_subnet"
       cidr = "10.70.0.0/24"
       ip   = "10.70.0.21"
+    }
+  Subnet creation without ip assign example:
+    {
+      name = "vtl_subnet"
+      cidr = "10.70.0.0/24"
     }
   EOT
   type = object({
@@ -113,12 +118,17 @@ variable "private_subnet_3" {
 
 variable "private_subnet_4" {
   description = <<EOT
-  Configure this input to create a new subnet for your instance. Follow the example format provided. To skip subnet creation, set this value to null.
-  Example:
+  Configure this input to create a new subnet for your instance. To skip subnet creation, set this value to null. Follow the example formats to configure. Mandatory fields - 'name', 'cidr'. Optional field - 'ip'.
+  Subnet creation with ip assign example:
     {
       name = "vtl_subnet"
       cidr = "10.70.0.0/24"
       ip   = "10.70.0.21"
+    }
+  Subnet creation without ip assign example:
+    {
+      name = "vtl_subnet"
+      cidr = "10.70.0.0/24"
     }
   EOT
 
@@ -160,10 +170,16 @@ variable "private_subnet_4" {
 variable "existing_powervs_subnets" {
   description = <<EOT
   Configuration for a existing private subnets to be attached to the StorSafe VTL instance including its name, and an optional IP address to assign to StorSafe VTL instance. To configure, follow the example format provided.
-  {
-    name = "subnet_x"
-    ip   = "10.53.33.0"
-  }
+  [
+    {
+      name = "subnet_x"
+      ip   = "10.40.33.0"
+    },
+    {
+      name = "subnet_y"
+      ip   = "10.41.0.7"
+    }
+  ]
   EOT
   type = list(object({
     name = string
