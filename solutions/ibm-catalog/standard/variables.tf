@@ -172,11 +172,11 @@ variable "existing_powervs_subnets" {
   Configuration for a existing private subnets to be attached to the StorSafe VTL instance including its name, and an optional IP address to assign to StorSafe VTL instance. To configure, follow the example format provided. Mandatory field - 'name'. Optional field - 'ip'.
   [
     {
-      "name" = "subnet_x",
-      "ip"   = "10.40.33.0"
+      "name" : "subnet_x",
+      "ip"   : "10.40.33.0"
     },
     {
-      "name" = "subnet_y"
+      "name" : "subnet_y"
     }
   ]
   EOT
