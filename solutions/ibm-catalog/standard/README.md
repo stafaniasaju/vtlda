@@ -13,7 +13,7 @@ This is not intended to be called by one or more other modules since it contains
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.76.3 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.77.0 |
 
 ### Modules
 
@@ -26,23 +26,23 @@ This is not intended to be called by one or more other modules since it contains
 
 | Name | Type |
 |------|------|
-| [ibm_pi_network.private_subnet_3](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/resources/pi_network) | resource |
-| [ibm_pi_network.private_subnet_4](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/resources/pi_network) | resource |
-| [ibm_pi_volume.configuration_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/resources/pi_volume) | resource |
-| [ibm_pi_volume.index_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/resources/pi_volume) | resource |
-| [ibm_pi_volume.tape_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/resources/pi_volume) | resource |
-| [ibm_is_image.is_instance_boot_image_data](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/is_image) | data source |
-| [ibm_is_instance.network_services_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/is_instance) | data source |
-| [ibm_is_subnet.network_services_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/is_subnet) | data source |
-| [ibm_is_vpc.edge_vpc_data](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/is_vpc) | data source |
-| [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/pi_catalog_images) | data source |
-| [ibm_pi_key.key](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/pi_key) | data source |
-| [ibm_pi_network.existing_powervs_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/pi_network) | data source |
-| [ibm_pi_network.powervs_backup_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/pi_network) | data source |
-| [ibm_pi_network.powervs_management_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/pi_network) | data source |
-| [ibm_pi_placement_groups.cloud_instance_groups](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/pi_placement_groups) | data source |
-| [ibm_schematics_output.schematics_output](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/schematics_output) | data source |
-| [ibm_schematics_workspace.schematics_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/schematics_workspace) | data source |
+| [ibm_pi_network.private_subnet_3](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/resources/pi_network) | resource |
+| [ibm_pi_network.private_subnet_4](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/resources/pi_network) | resource |
+| [ibm_pi_volume.configuration_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/resources/pi_volume) | resource |
+| [ibm_pi_volume.index_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/resources/pi_volume) | resource |
+| [ibm_pi_volume.tape_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/resources/pi_volume) | resource |
+| [ibm_is_image.is_instance_boot_image_data](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_image) | data source |
+| [ibm_is_instance.network_services_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_instance) | data source |
+| [ibm_is_subnet.network_services_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_subnet) | data source |
+| [ibm_is_vpc.edge_vpc_data](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_vpc) | data source |
+| [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/pi_catalog_images) | data source |
+| [ibm_pi_key.key](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/pi_key) | data source |
+| [ibm_pi_network.existing_powervs_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/pi_network) | data source |
+| [ibm_pi_network.powervs_backup_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/pi_network) | data source |
+| [ibm_pi_network.powervs_management_subnet](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/pi_network) | data source |
+| [ibm_pi_placement_groups.cloud_instance_groups](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/pi_placement_groups) | data source |
+| [ibm_schematics_output.schematics_output](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/schematics_output) | data source |
+| [ibm_schematics_workspace.schematics_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/schematics_workspace) | data source |
 
 ### Inputs
 
