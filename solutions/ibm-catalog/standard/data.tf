@@ -15,7 +15,7 @@ data "ibm_schematics_output" "schematics_output" {
 }
 
 ###############################################################
-# Data retrieval for boot image of VPC StorSight instance
+# Data of boot image for windows instance in VPC
 ###############################################################
 data "ibm_is_image" "is_instance_boot_image_data" {
   count = var.create_windows_instance ? 1 : 0
@@ -50,21 +50,6 @@ data "ibm_pi_catalog_images" "catalog_images_ds" {
 ###############################################################
 data "ibm_pi_placement_groups" "cloud_instance_groups" {
   pi_cloud_instance_id = local.powervs_workspace_guid
-}
-
-data "ibm_pi_key" "key" {
-  pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_key_name          = local.powervs_sshkey_name
-}
-
-data "ibm_pi_network" "powervs_management_subnet" {
-  pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_network_name      = local.powervs_mgmt_net
-}
-
-data "ibm_pi_network" "powervs_backup_subnet" {
-  pi_cloud_instance_id = local.powervs_workspace_guid
-  pi_network_name      = local.powervs_bkp_net
 }
 
 data "ibm_pi_network" "existing_subnets" {

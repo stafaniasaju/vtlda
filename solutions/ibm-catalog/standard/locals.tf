@@ -33,13 +33,13 @@ locals {
 
 # Extract power virtual server workspace data
 locals {
-  prefix                 = local.powervs_infrastructure[0].prefix.value
-  powervs_workspace_guid = local.powervs_infrastructure[0].powervs_workspace_guid.value
-  powervs_workspace_crn  = local.powervs_infrastructure[0].powervs_workspace_id.value
-  powervs_workspace_name = local.powervs_infrastructure[0].powervs_workspace_name.value
-  powervs_sshkey_name    = local.powervs_infrastructure[0].powervs_ssh_public_key.value.name
-  powervs_mgmt_net       = local.powervs_infrastructure[0].powervs_management_subnet.value.name
-  powervs_bkp_net        = local.powervs_infrastructure[0].powervs_backup_subnet.value.name
+  prefix                    = local.powervs_infrastructure[0].prefix.value
+  powervs_workspace_guid    = local.powervs_infrastructure[0].powervs_workspace_guid.value
+  powervs_workspace_crn     = local.powervs_infrastructure[0].powervs_workspace_id.value
+  powervs_workspace_name    = local.powervs_infrastructure[0].powervs_workspace_name.value
+  powervs_sshkey_name       = local.powervs_infrastructure[0].powervs_ssh_public_key.value.name
+  powervs_management_subnet = local.powervs_infrastructure[0].powervs_management_subnet.value
+  powervs_backup_subnet     = local.powervs_infrastructure[0].powervs_backup_subnet.value
 }
 
 # Extract the image id of the pi_instance_boot_image
@@ -55,24 +55,24 @@ locals {
 locals {
   placement_group                = [for x in data.ibm_pi_placement_groups.cloud_instance_groups.placement_groups : x if x.name == var.placement_group]
   placement_group_id             = length(local.placement_group) > 0 ? local.placement_group[0].id : ""
-  enable_anti_affinity           = var.pvm_instances != null ? (length(var.pvm_instances) > 0 ? true : false) : false
-  enable_existing_subnets_attach = var.existing_subnets != null ? (length(var.existing_subnets) > 0 ? true : false) : false
+  enable_anti_affinity           = try(length(var.pvm_instances), 0) > 0 ? true : false
+  enable_existing_subnets_attach = try(length(var.existing_subnets), 0) > 0 ? true : false
 }
 
 # Consolidate subnet list
 locals {
   pi_subnet_list = flatten([
     [{
-      cidr = data.ibm_pi_network.powervs_management_subnet.cidr
-      id   = data.ibm_pi_network.powervs_management_subnet.id,
+      cidr = local.powervs_management_subnet.cidr
+      id   = local.powervs_management_subnet.id,
       ip   = var.management_net_ip != null && var.management_net_ip != "" ? var.management_net_ip : null
-      name = data.ibm_pi_network.powervs_management_subnet.pi_network_name,
+      name = local.powervs_management_subnet.name,
     }],
     [{
-      cidr = data.ibm_pi_network.powervs_backup_subnet.cidr
-      id   = data.ibm_pi_network.powervs_backup_subnet.id,
+      cidr = local.powervs_backup_subnet.cidr
+      id   = local.powervs_backup_subnet.id,
       ip   = var.backup_net_ip != null && var.backup_net_ip != "" ? var.backup_net_ip : null
-      name = data.ibm_pi_network.powervs_backup_subnet.pi_network_name,
+      name = local.powervs_backup_subnet.name,
     }],
     var.private_subnet_3 != null ?
     [{

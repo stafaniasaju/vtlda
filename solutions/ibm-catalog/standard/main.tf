@@ -1,5 +1,5 @@
 ###############################################################
-# Deploy StorSight instance in Edge VPC
+# Deploy Windows Instance in Edge VPC
 ###############################################################
 
 module "create_windows_instance" {
@@ -53,7 +53,7 @@ module "pi_instance" {
   version = "2.6.1"
 
   pi_workspace_guid              = local.powervs_workspace_guid
-  pi_ssh_public_key_name         = length(local.powervs_sshkey_name) > 0 ? data.ibm_pi_key.key.id : null
+  pi_ssh_public_key_name         = local.powervs_sshkey_name
   pi_image_id                    = local.pi_image_id
   pi_networks                    = local.pi_subnet_list
   pi_instance_name               = var.instance_name

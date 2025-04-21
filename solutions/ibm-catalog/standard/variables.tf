@@ -169,7 +169,7 @@ variable "private_subnet_4" {
 
 variable "existing_subnets" {
   description = <<EOT
-  Configuration for a existing private subnets to be attached to the StorSafe instance including its name, and an optional IP address to assign to StorSafe instance. To configure, follow the example format provided. Mandatory field - 'name'. Optional field - 'ip'.
+  List of existing private subnets to be attached to the StorSafe instance including its name, and an optional IP address to assign to StorSafe instance. To configure, follow the example format provided. Mandatory field - 'name'. Optional field - 'ip'.
   [
     {
       "name" : "subnet_x",
@@ -191,12 +191,6 @@ variable "placement_group" {
   description = "The server placement group name where the StorSafe instance will be placed, as defined for the selected Power Systems Virtual Server CRN."
   type        = string
   default     = ""
-}
-
-variable "affinity_policy" {
-  description = "The storage anti-affinity policy to use for placement of the StorSafe volume if PVM instance IDs are specified."
-  type        = string
-  default     = "anti-affinity"
 }
 
 variable "pvm_instances" {
@@ -230,6 +224,12 @@ variable "create_windows_instance" {
 }
 
 # hidden variables
+variable "affinity_policy" {
+  description = "The storage anti-affinity policy to use for placement of the StorSafe volume if PVM instance IDs are specified."
+  type        = string
+  default     = "anti-affinity"
+}
+
 variable "pi_instance_boot_image" {
   description = "The boot image to be used while creating the StorSafe PowerVS instance."
   type        = string
