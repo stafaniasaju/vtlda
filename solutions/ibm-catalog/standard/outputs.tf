@@ -32,7 +32,11 @@ output "storsafe_vtl_instance" {
 
 output "storsafe_vtl_instance_subnets" {
   description = "The subnets attached to the FalconStor StorSafe instance."
-  value       = local.pi_subnet_list
+  value = [for subnet in local.pi_subnet_list : {
+    cidr = subnet.cidr
+    id   = subnet.id
+    name = subnet.name
+  }]
 }
 
 output "storsafe_vtl_volumes_list" {
