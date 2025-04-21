@@ -8,7 +8,7 @@
       "tags": ["network_vpc", "Technology"],
       "keywords": ["Power", "IBM i", "Disaster Recovery", "Backup", "NAS", "VTL", "Deduplication", "Migration", "Veeam"],
       "short_description": "Reduce your monthly PowerVS backup storage cost by up to 90%, while improving your existing backup solution performance.",
-      "long_description": "FalconStor StorSafe is a software solution that optimizes backup and restore, to improve performance and significantly reduce backup storage costs, all without requiring changes to the existing requirement. With its integrated deduplication, the solution removes redundant copies of data, thereby reducing capacity requirements, decreasing storage costs, and minimizing replication and restore times. StorSafe VTL can be used with all leading backup solutions, and enables both hybrid and native-cloud backup, as well as both workload and tape migration to the cloud. StorSafe VTL also supports NFS and SMB interfaces in a NAS environment. AIX and Linux systems can use StorSafe as an NFS server for applications such as Oracle RMAN or SAP Hana Studio. You can also store backup files created with the Veeam Agent for IBM AIX on backup repositories managed by Veeam Backup & Replication (VBR).",
+      "long_description": "FalconStor StorSafe is a software solution that optimizes backup and restore, to improve performance and significantly reduce backup storage costs, all without requiring changes to the existing requirement. With its integrated deduplication, the solution removes redundant copies of data, thereby reducing capacity requirements, decreasing storage costs, and minimizing replication and restore times. StorSafe can be used with all leading backup solutions, and enables both hybrid and native-cloud backup, as well as both workload and tape migration to the cloud. StorSafe also supports NFS and SMB interfaces in a NAS environment. AIX and Linux systems can use StorSafe as an NFS server for applications such as Oracle RMAN or SAP Hana Studio. You can also store backup files created with the Veeam Agent for IBM AIX on backup repositories managed by Veeam Backup & Replication (VBR).",
       "offering_docs_url": "https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStor%20StorSafe%20for%20IBM%20Power%20Deployment%20Guide.pdf",
       "support_details": "For support refer to the following link https://cloud.ibm.com/unifiedsupport/supportcenter.",
       "flavors": [
@@ -105,7 +105,7 @@
               "key": "private_subnet_4"
             },
             {
-              "key": "existing_powervs_subnets"
+              "key": "existing_subnets"
             },
             {
               "key": "placement_group"
@@ -128,7 +128,7 @@
               "key": "volume_tape_size"
             },
             {
-              "key": "create_storsight_instance"
+              "key": "create_windows_instance"
             },
             {
               "key": "pi_instance_boot_image",
@@ -154,7 +154,7 @@
               "key": "powervs_zone"
             },
             {
-              "key": "storsight_instance"
+              "key": "windows_instance"
             },
             {
               "key": "storsafe_vtl_instance"
