@@ -68,7 +68,7 @@ variable "backup_net_ip" {
 
 variable "private_subnet_3" {
   description = <<EOT
-  Configure this input object to create a new subnet for your instance. To skip subnet creation, set this value to null. Follow the example formats to configure. Mandatory fields - 'name', 'cidr'. Optional field - 'ip'.
+  Configure to create a private subnet for your instance. To skip subnet creation, set this value to null. Follow the example formats to configure. Mandatory fields - 'name', 'cidr'. Optional field - 'ip'.
   Subnet creation with ip assign example:
     {
       "name" : "storsafe_net1",
@@ -118,7 +118,7 @@ variable "private_subnet_3" {
 
 variable "private_subnet_4" {
   description = <<EOT
-  Configure this input object to create a new subnet for your instance. To skip subnet creation, set this value to null. Follow the example formats to configure. Mandatory fields - 'name', 'cidr'. Optional field - 'ip'.
+  Configure to create a private subnet for your instance. To skip subnet creation, set this value to null. Follow the example formats to configure. Mandatory fields - 'name', 'cidr'. Optional field - 'ip'.
   Subnet creation with ip assign example:
     {
       "name" : "storsafe_net2",
