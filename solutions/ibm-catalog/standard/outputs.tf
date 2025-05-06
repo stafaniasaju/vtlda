@@ -16,6 +16,11 @@ output "powervs_zone" {
   value       = local.powervs_zone
 }
 
+output "storsight_instance" {
+  description = "Details of StorSight VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone."
+  value       = var.create_storsight_instance ? module.create_storsight_instance[0].list[0] : {}
+}
+
 output "windows_instance" {
   description = "Details of Windows VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone."
   value       = var.create_windows_instance ? module.create_windows_instance[0].list[0] : {}

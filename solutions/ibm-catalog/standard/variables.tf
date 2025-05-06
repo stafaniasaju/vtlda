@@ -217,6 +217,12 @@ variable "volume_tape_size" {
   default     = 1024
 }
 
+variable "create_storsight_instance" {
+  description = "The boolean option to create a StorSight instance in the Edge VPC of the pre-requisite Landing zone infrastructure."
+  type        = bool
+  default     = false
+}
+
 variable "create_windows_instance" {
   description = "The boolean option to create a windows instance in the Edge VPC of the pre-requisite Landing zone infrastructure."
   type        = bool
@@ -230,20 +236,40 @@ variable "affinity_policy" {
   default     = "anti-affinity"
 }
 
-variable "pi_instance_boot_image" {
+variable "storsafe_instance_boot_image" {
   description = "The boot image to be used while creating the StorSafe PowerVS instance."
   type        = string
   default     = "VTL-FalconStor-11_13_001"
 }
 
-variable "is_instance_boot_image" {
-  description = "The boot image to be used while creating the VPC instance."
-  type        = string
-  default     = "ibm-windows-server-2022-full-standard-amd64-23"
+variable "windows_instance_configuration" {
+  description = "The boot image and instance profile to be used while creating the windows instance in VPC."
+  type = object({
+    boot_image       = string
+    instance_profile = string
+  })
+  default = {
+    boot_image       = "ibm-windows-server-2022-full-standard-amd64-23"
+    instance_profile = "bx2-2x8"
+  }
 }
 
-variable "is_instance_profile" {
-  description = "The boot image to be used while creating the  VPC instance."
+variable "custom_storsight_image" {
+  description = "The information of the custom image to be imported to create StorSight instance in VPC."
+  type = object({
+    name             = string
+    cos_href         = string
+    operating_system = string
+  })
+  default = {
+    name             = "falconstor-storsight-rocky-linux-8"
+    cos_href         = "cos://us-east/falconstor-download/falconstor-storsight-vpc.vhd"
+    operating_system = "rocky-linux-8-amd64"
+  }
+}
+
+variable "storsight_instance_profile" {
+  description = "The instance profile to be used while creating StorSight instance."
   type        = string
-  default     = "bx2-2x8"
+  default     = "bx2d-4x16"
 }
