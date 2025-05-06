@@ -3,6 +3,8 @@
 ###############################################################
 
 resource "ibm_is_image" "import_custom_storsight_image" {
+  count = var.create_storsight_instance ? 1 : 0
+
   name             = var.custom_storsight_image.name
   href             = var.custom_storsight_image.cos_href
   operating_system = var.custom_storsight_image.operating_system
