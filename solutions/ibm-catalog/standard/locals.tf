@@ -6,7 +6,8 @@ locals {
 
 # Extract Edge VPC data
 locals {
-  vsi_list = local.powervs_infrastructure[0].vsi_list.value
+  get_vpc_data = var.create_storsight_instance || var.create_windows_instance
+  vsi_list     = local.powervs_infrastructure[0].vsi_list.value
   network_services_instance = try(
     [for vsi in local.vsi_list : vsi if can(regex("network-services", vsi.name))][0],
     null
@@ -14,16 +15,16 @@ locals {
   vpc_name = local.network_services_instance.vpc_name
   vpc_id   = local.network_services_instance.vpc_id
 
-  resource_group_id = var.create_windows_instance ? data.ibm_is_instance.network_services_instance[0].resource_group : null
+  resource_group_id = local.get_vpc_data ? data.ibm_is_instance.network_services_instance[0].resource_group : null
   security_group = try(
     [for sg in data.ibm_is_vpc.edge_vpc_data[0].security_group : sg
       if can(regex("network-services-sg", sg.group_name))
     ][0],
     null
   )
-  security_group_ids = var.create_windows_instance ? [local.security_group.group_id] : []
-  ssh_key_ids        = var.create_windows_instance ? [data.ibm_is_instance.network_services_instance[0].keys[0].id] : []
-  subnets = var.create_windows_instance ? [{
+  security_group_ids = local.get_vpc_data ? [local.security_group.group_id] : []
+  ssh_key_ids        = local.get_vpc_data ? [data.ibm_is_instance.network_services_instance[0].keys[0].id] : []
+  subnets = local.get_vpc_data ? [{
     name = data.ibm_is_subnet.network_services_subnet[0].name,
     id   = data.ibm_is_subnet.network_services_subnet[0].id,
     zone = data.ibm_is_subnet.network_services_subnet[0].zone,
@@ -42,13 +43,13 @@ locals {
   powervs_backup_subnet     = local.powervs_infrastructure[0].powervs_backup_subnet.value
 }
 
-# Extract the image id of the pi_instance_boot_image
+# Extract the image id of the storsafe_instance_boot_image
 locals {
   catalog_images = {
     for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images :
     stock_image.name => stock_image.image_id
   }
-  pi_image_id = lookup(local.catalog_images, var.pi_instance_boot_image, null)
+  pi_image_id = lookup(local.catalog_images, var.storsafe_instance_boot_image, null)
 }
 
 # Extract the placement_group_id and anti-affinity configuration

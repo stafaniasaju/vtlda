@@ -82,7 +82,8 @@
               "required": true
             },
             {
-              "key": "processor_mode"
+              "key": "processor_mode",
+              "required": true
             },
             {
               "key": "system_type",
@@ -128,18 +129,25 @@
               "key": "volume_tape_size"
             },
             {
+              "key": "create_storsight_instance"
+            },
+            {
               "key": "create_windows_instance"
             },
             {
-              "key": "pi_instance_boot_image",
+              "key": "storsafe_instance_boot_image",
               "hidden": true
             },
             {
-              "key": "is_instance_boot_image",
+              "key": "windows_instance_configuration",
               "hidden": true
             },
             {
-              "key": "is_instance_profile",
+              "key": "custom_storsight_image",
+              "hidden": true
+            },
+            {
+              "key": "storsight_instance_profile",
               "hidden": true
             }
           ],
