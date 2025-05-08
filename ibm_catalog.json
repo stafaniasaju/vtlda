@@ -100,10 +100,10 @@
               "key": "backup_net_ip"
             },
             {
-              "key": "private_subnet_3"
+              "key": "optional_subnet_3"
             },
             {
-              "key": "private_subnet_4"
+              "key": "optional_subnet_4"
             },
             {
               "key": "existing_subnets"

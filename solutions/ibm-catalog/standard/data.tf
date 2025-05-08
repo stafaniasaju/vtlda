@@ -36,14 +36,8 @@ data "ibm_is_instance" "network_services_instance" {
   name  = local.network_services_instance.name
 }
 
-data "ibm_is_subnet" "network_services_subnet" {
-  count      = local.get_vpc_data ? 1 : 0
-  identifier = data.ibm_is_instance.network_services_instance[0].network_attachments[0].subnet[0].id
-}
-
-data "ibm_is_vpc" "edge_vpc_data" {
-  count = local.get_vpc_data ? 1 : 0
-  name  = local.vpc_name
+data "ibm_is_volume" "network_services_instance_boot_volume" {
+  identifier = data.ibm_is_instance.network_services_instance[0].boot_volume[0].volume_id
 }
 
 ###############################################################

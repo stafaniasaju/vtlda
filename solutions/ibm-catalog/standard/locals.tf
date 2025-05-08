@@ -12,23 +12,26 @@ locals {
     [for vsi in local.vsi_list : vsi if can(regex("network-services", vsi.name))][0],
     null
   )
-  vpc_name = local.network_services_instance.vpc_name
-  vpc_id   = local.network_services_instance.vpc_id
+  #vpc_name = local.network_services_instance.vpc_name
+  vpc_id = local.network_services_instance.vpc_id
 
   resource_group_id = local.get_vpc_data ? data.ibm_is_instance.network_services_instance[0].resource_group : null
   security_group = try(
-    [for sg in data.ibm_is_vpc.edge_vpc_data[0].security_group : sg
+    [for sg in local.powervs_infrastructure[0].vpc_data.value[0].vpc_data.security_group : sg
       if can(regex("network-services-sg", sg.group_name))
     ][0],
     null
   )
-  security_group_ids = local.get_vpc_data ? [local.security_group.group_id] : []
-  ssh_key_ids        = local.get_vpc_data ? [data.ibm_is_instance.network_services_instance[0].keys[0].id] : []
+  security_group_ids    = local.get_vpc_data ? [local.security_group.group_id] : []
+  ssh_key_ids           = local.get_vpc_data ? [data.ibm_is_instance.network_services_instance[0].keys[0].id] : []
+  network_svc_subnet_id = data.ibm_is_instance.network_services_instance[0].network_attachments[0].subnet[0].id
+  network_svc_subnet = [for subnet in local.powervs_infrastructure[0].vpc_data.value[0].subnet_zone_list : subnet
+  if local.network_svc_subnet_id == subnet.id]
   subnets = local.get_vpc_data ? [{
-    name = data.ibm_is_subnet.network_services_subnet[0].name,
-    id   = data.ibm_is_subnet.network_services_subnet[0].id,
-    zone = data.ibm_is_subnet.network_services_subnet[0].zone,
-    cidr = data.ibm_is_subnet.network_services_subnet[0].ipv4_cidr_block
+    name = local.network_svc_subnet[0].name,
+    id   = local.network_svc_subnet[0].id,
+    zone = local.network_svc_subnet[0].zone,
+    cidr = local.network_svc_subnet[0].cidr
   }] : []
 }
 
@@ -75,20 +78,20 @@ locals {
       ip   = var.backup_net_ip != null && var.backup_net_ip != "" ? var.backup_net_ip : null
       name = local.powervs_backup_subnet.name,
     }],
-    var.private_subnet_3 != null ?
+    var.optional_subnet_3 != null ?
     [{
-      cidr = resource.ibm_pi_network.private_subnet_3[0].pi_cidr
-      id   = resource.ibm_pi_network.private_subnet_3[0].network_id
-      ip   = var.private_subnet_3.ip
-      name = resource.ibm_pi_network.private_subnet_3[0].pi_network_name
+      cidr = resource.ibm_pi_network.optional_subnet_3[0].pi_cidr
+      id   = resource.ibm_pi_network.optional_subnet_3[0].network_id
+      ip   = var.optional_subnet_3.ip
+      name = resource.ibm_pi_network.optional_subnet_3[0].pi_network_name
     }]
     : [],
-    var.private_subnet_4 != null ?
+    var.optional_subnet_4 != null ?
     [{
-      cidr = resource.ibm_pi_network.private_subnet_4[0].pi_cidr
-      id   = resource.ibm_pi_network.private_subnet_4[0].network_id
-      ip   = var.private_subnet_4.ip
-      name = resource.ibm_pi_network.private_subnet_4[0].pi_network_name
+      cidr = resource.ibm_pi_network.optional_subnet_4[0].pi_cidr
+      id   = resource.ibm_pi_network.optional_subnet_4[0].network_id
+      ip   = var.optional_subnet_4.ip
+      name = resource.ibm_pi_network.optional_subnet_4[0].pi_network_name
     }]
     : [],
     local.enable_existing_subnets_attach ? [
