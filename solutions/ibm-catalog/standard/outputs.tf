@@ -16,14 +16,14 @@ output "powervs_zone" {
   value       = local.powervs_zone
 }
 
-# output "storsight_instance" {
-#   description = "Details of StorSight VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone."
-#   value       = var.create_storsight_instance ? module.create_storsight_instance[0].list[0] : {}
-# }
+output "storsight_instance" {
+  description = "Details of StorSight VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone."
+  value       = local.storsight_instance
+}
 
 output "windows_instance" {
   description = "Details of Windows VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone."
-  value       = var.create_windows_instance ? module.create_windows_instance[0].list[0] : {}
+  value       = local.windows_instance
 }
 
 output "storsafe_vtl_instance" {
@@ -48,29 +48,3 @@ output "storsafe_vtl_volumes_list" {
   description = "List of volumes created - configuration, index and tape volumes."
   value       = local.storsafe_vtl_volume_list
 }
-
-###############################################################
-# Debug
-###############################################################
-
-# output "network_svc_subnet" {
-#   description = "vpc_data"
-#   value       = local.network_svc_subnet
-# }
-
-# output "network_svc_instance" {
-#   description = "vsi_list"
-#   value       = data.ibm_is_instance.network_services_instance
-#   sensitive   = true
-# }
-
-# output "encryption_key" {
-#   description = "vsi_list"
-#   value       = data.ibm_is_volume.network_services_instance_boot_volume.encryption_key
-#   #sensitive   = true
-# }
-
-# output "subnet_id" {
-#   description = "sg"
-#   value       = data.ibm_is_instance.network_services_instance[0].network_attachments[0].subnet[0].id
-# }

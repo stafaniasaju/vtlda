@@ -147,7 +147,7 @@
               "hidden": true
             },
             {
-              "key": "storsight_instance_profile",
+              "key": "storsight_instance_configuration",
               "hidden": true
             }
           ],
@@ -189,23 +189,27 @@
           "architecture": {
             "features": [
               {
-                "title": "PowerVS Appliance Instance",
-                "description": "1"
+                "title": "StorSafe PowerVS Appliance Instance",
+                "description": "1 PowerVS Appliance Instance"
               },
               {
-                "title": "Number of PowerVS Volumes",
-                "description": "3"
+                "title": "Storage Volumes",
+                "description": "3 - Configuration, Index and Tape volumes"
               },
               {
-                "title": "Number of Windows VSI on VPC (Optional)",
-                "description": "1"
+                "title": "StorSight VSI on VPC",
+                "description": "Optional, custom StorSight image upload and VSI creation"
+              },
+              {
+                "title": "Windows VSI on VPC",
+                "description": "Optional"
               }
             ],
             "diagrams": [
               {
                 "diagram": {
                   "caption": "Architecture diagram",
-                  "url": "https://raw.githubusercontent.com/falconstor-code/StorSafe-DA/main/xdocs/architecture.svg",
+                  "url": "https://raw.githubusercontent.com/falconstor-code/StorSafe-DA/storsight_v3/xdocs/deploy-storsafe-pvs-da.svg",
                   "metadata": []
                 },
                 "description": "FalconStor StorSafe PowerVS Deployable Architecture"

@@ -31,15 +31,6 @@ data "ibm_is_image" "is_instance_boot_image_data" {
   name  = var.windows_instance_configuration.boot_image
 }
 
-data "ibm_is_instance" "network_services_instance" {
-  count = local.get_vpc_data ? 1 : 0
-  name  = local.network_services_instance.name
-}
-
-data "ibm_is_volume" "network_services_instance_boot_volume" {
-  identifier = data.ibm_is_instance.network_services_instance[0].boot_volume[0].volume_id
-}
-
 ###############################################################
 # Data for Catalog Stock Images
 ###############################################################

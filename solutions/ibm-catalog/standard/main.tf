@@ -13,14 +13,14 @@ resource "ibm_is_image" "import_custom_storsight_image" {
   }
 }
 
-# IBM terraform modules does not support custom boot size currently. Feature request is opened. Hence using resource
+# IBM terraform modules does not support custom boot size currently. Feature request is opened. Hence using resource.
 
 resource "ibm_is_instance" "storsight_instance" {
   count = var.create_storsight_instance ? 1 : 0
 
   name           = "${local.prefix}-storsight"
   image          = data.ibm_is_image.storsight_boot_image_data[0].id
-  profile        = var.storsight_instance_profile
+  profile        = var.storsight_instance_configuration.profile
   resource_group = local.resource_group_id
   keys           = local.ssh_key_ids
   primary_network_interface {
@@ -29,9 +29,9 @@ resource "ibm_is_instance" "storsight_instance" {
   }
   boot_volume {
     auto_delete_volume = true
-    name               = "storsight-boot-volume"
-    size               = 200
-    encryption         = data.ibm_is_volume.network_services_instance_boot_volume.encryption_key
+    name               = var.storsight_instance_configuration.boot_volume_name
+    size               = var.storsight_instance_configuration.boot_volume_size
+    encryption         = local.boot_volume_encryption_key
   }
   vpc  = local.vpc_id
   zone = local.network_svc_subnet[0].zone
@@ -55,7 +55,7 @@ module "create_windows_instance" {
   vsi_per_subnet                = 1
   kms_encryption_enabled        = true
   skip_iam_authorization_policy = true
-  boot_volume_encryption_key    = data.ibm_is_volume.network_services_instance_boot_volume.encryption_key
+  boot_volume_encryption_key    = local.boot_volume_encryption_key
 }
 
 ###############################################################

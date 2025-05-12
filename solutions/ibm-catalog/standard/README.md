@@ -35,8 +35,6 @@ This is not intended to be called by one or more other modules since it contains
 | [ibm_pi_volume.tape_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/resources/pi_volume) | resource |
 | [ibm_is_image.is_instance_boot_image_data](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/is_image) | data source |
 | [ibm_is_image.storsight_boot_image_data](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/is_image) | data source |
-| [ibm_is_instance.network_services_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/is_instance) | data source |
-| [ibm_is_volume.network_services_instance_boot_volume](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/is_volume) | data source |
 | [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/pi_catalog_images) | data source |
 | [ibm_pi_network.existing_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/pi_network) | data source |
 | [ibm_pi_placement_groups.cloud_instance_groups](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/pi_placement_groups) | data source |
@@ -66,7 +64,7 @@ This is not intended to be called by one or more other modules since it contains
 | <a name="input_repository_capacity"></a> [repository\_capacity](#input\_repository\_capacity) | The StorSafe licensed repository capacity in TB. | `number` | `1` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | The type of storage tier for all volumes to attach to the StorSafe instance: 'tier1' (high performance) or 'tier3'. | `string` | `"tier1"` | no |
 | <a name="input_storsafe_instance_boot_image"></a> [storsafe\_instance\_boot\_image](#input\_storsafe\_instance\_boot\_image) | The boot image to be used while creating the StorSafe PowerVS instance. | `string` | `"VTL-FalconStor-11_13_001"` | no |
-| <a name="input_storsight_instance_profile"></a> [storsight\_instance\_profile](#input\_storsight\_instance\_profile) | The instance profile to be used while creating StorSight instance. | `string` | `"bx2-4x16"` | no |
+| <a name="input_storsight_instance_configuration"></a> [storsight\_instance\_configuration](#input\_storsight\_instance\_configuration) | The instance profile to be used while creating StorSight instance. | <pre>object({<br/>    profile          = string<br/>    boot_volume_name = string<br/>    boot_volume_size = number<br/>  })</pre> | <pre>{<br/>  "boot_volume_name": "storsight-boot-volume",<br/>  "boot_volume_size": 200,<br/>  "profile": "bx2-4x16"<br/>}</pre> | no |
 | <a name="input_system_type"></a> [system\_type](#input\_system\_type) | The type of system on which to create the StorSafe instance: 's922' or 'e980' for Power 9; 's1022' for Power 10 if present in the selected datacenter. | `string` | `"s922"` | no |
 | <a name="input_vcpus"></a> [vcpus](#input\_vcpus) | The number of vCPUs, AKA virtual processors, to assign to the StorSafe instance; one vCPU is equal to one physical CPU core. | `number` | `1` | no |
 | <a name="input_volume_configuration_size"></a> [volume\_configuration\_size](#input\_volume\_configuration\_size) | The size of the block storage volume for the StorSafe Configuration Repository in GB. | `number` | `20` | no |
@@ -84,5 +82,6 @@ This is not intended to be called by one or more other modules since it contains
 | <a name="output_storsafe_vtl_instance"></a> [storsafe\_vtl\_instance](#output\_storsafe\_vtl\_instance) | The name, id and private IPS of FalconStor StorSafe instance. |
 | <a name="output_storsafe_vtl_instance_subnets"></a> [storsafe\_vtl\_instance\_subnets](#output\_storsafe\_vtl\_instance\_subnets) | The subnets attached to the FalconStor StorSafe instance. |
 | <a name="output_storsafe_vtl_volumes_list"></a> [storsafe\_vtl\_volumes\_list](#output\_storsafe\_vtl\_volumes\_list) | List of volumes created - configuration, index and tape volumes. |
+| <a name="output_storsight_instance"></a> [storsight\_instance](#output\_storsight\_instance) | Details of StorSight VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone. |
 | <a name="output_windows_instance"></a> [windows\_instance](#output\_windows\_instance) | Details of Windows VSI created in Edge VPC of PowerVS infrastructure with VPC landing zone. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -268,8 +268,16 @@ variable "custom_storsight_image" {
   }
 }
 
-variable "storsight_instance_profile" {
+variable "storsight_instance_configuration" {
   description = "The instance profile to be used while creating StorSight instance."
-  type        = string
-  default     = "bx2-4x16"
+  type = object({
+    profile          = string
+    boot_volume_name = string
+    boot_volume_size = number
+  })
+  default = {
+    profile          = "bx2-4x16"
+    boot_volume_name = "storsight-boot-volume"
+    boot_volume_size = 200
+  }
 }
