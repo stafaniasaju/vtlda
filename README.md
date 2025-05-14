@@ -6,13 +6,11 @@ This repository contains terraform solution that help in deploying FalconStor St
   1. You must have an existing deployment of [PowerVS Virtual Server with VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global) deployable architecture. This can be deployed from IBM catalog tile. Instructions are provided [here](/docs/powervs-vpc?topic=powervs-vpc-automation-solution-overview). Only following variations are supported to proceed with the deployment of FalconStor StorSafe PowerVS Deployable Architecture.
   - [Standard Landscape Variation](/docs/powervs-vpc?topic=powervs-vpc-deploy-arch-ibm-pvs-inf-standard)
   - [Extend Standard Landscape Variation](/docs/powervs-vpc?topic=powervs-vpc-deploy-arch-ibm-pvs-inf-extension)
-
-
   2. Refer to the [Solution Sizing](http://ibmsizing.falconstor.com) page (login password IBM2023) to get the sizing information about the deduplication repository, backup cache, memory, CPU, and the machine type.
-  2. Refer to the [Cost Estimation](https://cloud.ibm.com/catalog/services/power-systems-virtual-server) page, click **Estimate costs** on the top right side panel, select **Virtual Tape Library** as OS, enter values for usage parameters based on the Solution Sizing tool results, click **Calculate cost** and **Save** to see the cost. Click **Review estimate** to go the **Cost estimator** page. Additional costs may apply based on extra capacity for the Cloud Object Storage (COS), or additional network and infrastructure components.
-  3. Refer to the [Deployment Guide](https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStor%20VTL%20for%20IBM%20Deployment%20Guide.pdf) for deployment scenarios and setup instructions.
-  4. Verify that you have Manager service access role for IBM Cloud Schematics.
-  5. Review and verify the Identity and Access Management (IAM) information at [Managing Power Systems Virtual Servers (IAM)](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-managing-resources-and-users).
+  4. Refer to the [Cost Estimation](https://cloud.ibm.com/catalog/services/power-systems-virtual-server) page, click **Estimate costs** on the top right side panel, select **Virtual Tape Library** as OS, enter values for usage parameters based on the Solution Sizing tool results, click **Calculate cost** and **Save** to see the cost. Click **Review estimate** to go the **Cost estimator** page. Additional costs may apply based on extra capacity for the Cloud Object Storage (COS), or additional network and infrastructure components.
+  4. Refer to the [Deployment Guide](https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStor%20VTL%20for%20IBM%20Deployment%20Guide.pdf) for deployment scenarios and setup instructions.
+  5. Verify that you have Manager service access role for IBM Cloud Schematics.
+  6. Review and verify the Identity and Access Management (IAM) information at [Managing Power Systems Virtual Servers (IAM)](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-managing-resources-and-users).
 
 ## Required resources
 
