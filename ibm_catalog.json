@@ -21,7 +21,7 @@
             {
               "name": "deploy-arch-ibm-pvs-inf",
               "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
-              "flavors": ["standard", "standard-extend", "import"],
+              "flavors": ["standard", "standard-extend"],
               "install_type": "fullstack",
               "optional": true,
               "version": ">=8.0.0",
@@ -209,7 +209,7 @@
               {
                 "diagram": {
                   "caption": "Architecture diagram",
-                  "url": "https://raw.githubusercontent.com/falconstor-code/StorSafe-DA/storsight_v3/xdocs/deploy-storsafe-pvs-da.svg",
+                  "url": "https://raw.githubusercontent.com/stafaniasaju/vtlda/storsight_v3/xdocs/deploy-storsafe-pvs-da.svg",
                   "metadata": []
                 },
                 "description": "FalconStor StorSafe PowerVS Deployable Architecture"
